@@ -1,10 +1,11 @@
 package com.codecool.melomeetbackend.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -20,4 +21,15 @@ public class Request {
     private String link;
     @Column
     private String msg;
+    @ManyToOne
+    @Column
+    private User sender;
+    @Column
+    @ManyToOne
+    private User receiver;
+    @Column
+    @CreationTimestamp
+    private Timestamp dateOfCreation;
+    @Column
+    private boolean isRead;
 }
