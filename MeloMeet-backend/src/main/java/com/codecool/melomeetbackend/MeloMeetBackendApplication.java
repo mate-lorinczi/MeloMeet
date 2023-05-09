@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MeloMeetBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MeloMeetBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MeloMeetBackendApplication.class, args);
+    }
 
 }
