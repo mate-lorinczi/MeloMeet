@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-@Table
+@Table(name = "groups")
 public class Group {
 
     @Id
@@ -19,13 +19,11 @@ public class Group {
     @JoinColumn
     @ManyToOne
     private User creator;
-    @Column
     @JoinColumn
     @ManyToMany
     private Set<User> members;
     @Column
     private boolean isOpenToNonInvited;
-    @Column
     @JoinColumn
     @ManyToMany
     private Set<User> invited;
