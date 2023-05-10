@@ -9,9 +9,9 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public interface EventService<T extends Event> {
+public interface EventService<T extends Event, S extends EventDTO> {
 
-    T addNewEvent(EventDTO eventDTO);
+    T addNewEvent(S eventDTO);
     T findById(UUID id);
     Set<T> findAll();
     Set<T> findByPerformer(Performer performer);
