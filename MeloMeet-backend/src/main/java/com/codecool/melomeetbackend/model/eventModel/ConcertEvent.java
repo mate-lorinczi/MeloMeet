@@ -2,9 +2,7 @@ package com.codecool.melomeetbackend.model.eventModel;
 
 import com.codecool.melomeetbackend.model.Style;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
@@ -12,6 +10,7 @@ import java.util.Set;
 @Data
 @Table
 @NoArgsConstructor
+@AllArgsConstructor
 @DiscriminatorValue("1")
 public class ConcertEvent extends Event{
 
