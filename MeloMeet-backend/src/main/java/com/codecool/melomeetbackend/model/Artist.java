@@ -5,21 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
-@Data
+
 @Entity
 @Table
+@Data
 @NoArgsConstructor
-public class Venue {
+public class Artist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID venueId;
+    private UUID artistId;
     @Column
-    private String city;
-    @Column
-    private String postalCode;
-    @Column
-    private String address;
-    @Column
-    private boolean isOpenAir;
+    private String name;
 }

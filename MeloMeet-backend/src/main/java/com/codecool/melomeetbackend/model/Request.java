@@ -22,9 +22,9 @@ public class Request {
     @Column
     private String msg;
     @ManyToOne
-    @Column
+    @JoinColumn
     private User sender;
-    @Column
+    @JoinColumn
     @ManyToOne
     private User receiver;
     @Column

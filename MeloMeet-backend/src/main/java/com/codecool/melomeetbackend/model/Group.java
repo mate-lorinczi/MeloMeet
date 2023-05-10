@@ -17,7 +17,6 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID groupId;
     @JoinColumn
-    @Column
     @ManyToOne
     private User creator;
     @Column

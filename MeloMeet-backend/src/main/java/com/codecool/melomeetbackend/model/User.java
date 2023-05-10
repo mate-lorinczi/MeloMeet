@@ -1,5 +1,6 @@
 package com.codecool.melomeetbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +37,7 @@ public class User {
     @Column
     @JoinColumn
     @ManyToMany
+    @JsonIgnore
     private Set<User> friends;
     @Column
     private boolean isBanned;
