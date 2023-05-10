@@ -1,8 +1,10 @@
 package com.codecool.melomeetbackend.model.eventModel;
 
+import com.codecool.melomeetbackend.model.Performer;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,4 +19,8 @@ public abstract class Event {
     private LocalDateTime startDateAndTime;
     @Column
     private LocalDateTime endDateAndTime;
+    @Column
+    @ManyToMany
+    @JoinColumn
+    private Set<Performer> performers;
 }

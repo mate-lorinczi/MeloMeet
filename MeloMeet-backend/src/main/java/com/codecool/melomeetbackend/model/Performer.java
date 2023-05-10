@@ -10,11 +10,11 @@ import java.util.UUID;
 @Table
 @Data
 @NoArgsConstructor
-public class Artist {
+public class Performer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID artistId;
+    private UUID performerId;
     @Column
     private String name;
 }
