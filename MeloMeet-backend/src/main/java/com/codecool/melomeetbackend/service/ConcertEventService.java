@@ -25,8 +25,21 @@ public class ConcertEventService implements EventService<ConcertEvent, ConcertEv
 
     @Override
     public ConcertEvent addNewEvent(ConcertEventDTO eventDTO) {
+
+        if(eventDTO.getEndDateAndTime().isBefore(eventDTO.getStartDateAndTime())) {
+            throw new IllegalArgumentException("End time cannot be before start time");
+        }
+
         ConcertEvent concertEvent = concertEventMapper.mapDTOToEvent(eventDTO);
-        ConcertEvent savedConcertEvent = concertEventRepository.save(concertEvent);
+
+        ConcertEvent savedConcertEvent;
+
+        try {
+            savedConcertEvent = concertEventRepository.save(concertEvent);
+        } catch (Exception e) {
+            throw e;
+        }
+
 
         return savedConcertEvent;
     }
