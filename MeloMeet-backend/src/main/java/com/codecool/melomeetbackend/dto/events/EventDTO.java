@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.dto;
+package com.codecool.melomeetbackend.dto.events;
 
 import com.codecool.melomeetbackend.model.Performer;
 import lombok.Data;

@@ -1,13 +1,12 @@
 package com.codecool.melomeetbackend.service;
 
-import com.codecool.melomeetbackend.dto.EventDTO;
+import com.codecool.melomeetbackend.dto.events.EventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.eventModel.Event;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public interface EventService<T extends Event, S extends EventDTO> {

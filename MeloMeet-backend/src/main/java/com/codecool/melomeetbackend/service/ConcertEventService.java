@@ -1,7 +1,6 @@
 package com.codecool.melomeetbackend.service;
 
-import com.codecool.melomeetbackend.dto.ConcertEventDTO;
-import com.codecool.melomeetbackend.dto.EventDTO;
+import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.ConcertEventRepository;
