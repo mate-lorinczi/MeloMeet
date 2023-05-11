@@ -6,9 +6,11 @@ import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.ConcertEventRepository;
 import com.codecool.melomeetbackend.service.mappers.ConcertEventMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 @Service
@@ -40,27 +42,41 @@ public class ConcertEventService implements EventService<ConcertEvent, ConcertEv
             throw e;
         }
 
-
         return savedConcertEvent;
     }
 
     @Override
-    public ConcertEvent findById(UUID id) {
-        return null;
+    public ConcertEvent findById(String id) {
+
+        return concertEventRepository.findById(UUID.fromString(id)).orElseThrow(() -> new EntityNotFoundException("Event with id: " + id + " not found"));
     }
 
     @Override
-    public Set<ConcertEvent> findAll() {
-        return null;
+    public List<ConcertEvent> findAll() {
+
+        return concertEventRepository.findAll();
     }
 
     @Override
     public Set<ConcertEvent> findByPerformer(Performer performer) {
-        return null;
+        Set<ConcertEvent> concerts =
+                concertEventRepository.findConcertEventsByPerformersContains(performer);
+
+        if(concerts.size() < 1) {
+            throw new EntityNotFoundException("Event with performer: " + performer + " not found");
+        }
+
+        return concerts;
     }
 
     @Override
-    public boolean deleteById(UUID id) {
-        return false;
+    public boolean deleteById(String id) {
+        int affectedRows = concertEventRepository.deleteByEventId(UUID.fromString(id));
+
+        if(affectedRows < 1) {
+            throw new EntityNotFoundException("Entity with id " + id + " not found");
+        } else {
+            return true;
+        }
     }
 }

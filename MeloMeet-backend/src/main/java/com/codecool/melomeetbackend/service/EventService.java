@@ -5,6 +5,7 @@ import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.eventModel.Event;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -12,8 +13,8 @@ import java.util.UUID;
 public interface EventService<T extends Event, S extends EventDTO> {
 
     T addNewEvent(S eventDTO);
-    T findById(UUID id);
-    Set<T> findAll();
+    T findById(String id);
+    List<T> findAll();
     Set<T> findByPerformer(Performer performer);
-    boolean deleteById(UUID id);
+    boolean deleteById(String id);
 }
