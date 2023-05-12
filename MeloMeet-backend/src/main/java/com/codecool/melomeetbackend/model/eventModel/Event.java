@@ -1,6 +1,7 @@
 package com.codecool.melomeetbackend.model.eventModel;
 
 import com.codecool.melomeetbackend.model.Performer;
+import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.model.Venue;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -31,4 +32,7 @@ public abstract class Event {
     @JoinColumn
     @ManyToOne
     private Venue venue;
+    @JoinColumn
+    @ManyToOne
+    private User createdBy;
 }
