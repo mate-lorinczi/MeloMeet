@@ -63,6 +63,19 @@ public class ConcertEventController {
         }
     }
 
+    @GetMapping("/{concertEventId}")
+    public ResponseEntity<?> findConcertById(@PathVariable String concertEventId) {
+        try {
+            ConcertEvent concertEvent = concertEventService.findById(concertEventId);
+
+            return ResponseEntity.status(HttpStatus.OK).body(concertEvent);
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Concert not found.");
+        } catch (Exception e) {
+            return  ResponseEntity.internalServerError().build();
+        }
+    }
+
     @DeleteMapping("/{concertEventId}")
     public ResponseEntity<?> deleteConcertEventById(@PathVariable String concertEventId) {
         try {
