@@ -1,6 +1,7 @@
 package com.codecool.melomeetbackend.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,11 +11,16 @@ import java.util.UUID;
 @Table
 @Data
 @NoArgsConstructor
-public class Artist {
+@AllArgsConstructor
+public class Performer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID artistId;
+    private UUID performerId;
     @Column
     private String name;
+
+    public Performer(String performer) {
+        this.name = performer;
+    }
 }

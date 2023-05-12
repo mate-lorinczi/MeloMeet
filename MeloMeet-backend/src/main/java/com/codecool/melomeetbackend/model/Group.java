@@ -1,8 +1,12 @@
 package com.codecool.melomeetbackend.model;
 
+import com.codecool.melomeetbackend.model.eventModel.Event;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Set;
 import java.util.UUID;
@@ -20,11 +24,15 @@ public class Group {
     @ManyToOne
     private User creator;
     @JoinColumn
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> members;
     @Column
     private boolean isOpenToNonInvited;
     @JoinColumn
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> invited;
+    @JoinColumn
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Event event;
 }

@@ -14,4 +14,9 @@ public class Style {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long styleId;
     private String name;
+
+    public Style(String style) {
+
+        this.name = style;
+    }
 }

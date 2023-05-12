@@ -1,13 +1,14 @@
 package com.codecool.melomeetbackend.repository;
 
-import com.codecool.melomeetbackend.model.Style;
+import com.codecool.melomeetbackend.model.Performer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface StyleRepository extends JpaRepository<Style, Long> {
+public interface PerformerRepository extends JpaRepository<Performer, UUID> {
 
-    Optional<Style> findByName(String name);
+    Optional<Performer> findByName(String name);
 }
