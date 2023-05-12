@@ -5,10 +5,12 @@ import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.repository.PerformerRepository;
 import com.codecool.melomeetbackend.utility.mappers.PerformerMapper;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class PerformerServiceImpl implements PerformerService {
@@ -38,12 +40,16 @@ public class PerformerServiceImpl implements PerformerService {
 
     @Override
     public Performer findPerformerById(String id) {
-        return null;
+        Performer performer =
+                performerRepository.findById(UUID.fromString(id)).orElseThrow(() -> new EntityNotFoundException("Performer with id " + id + " not found"));
+
+        return performer;
     }
 
     @Override
     public Performer findPerformerByName(String name) {
-        return null;
+        Performer performer =
+                performerRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Performer with name " + name + " not found!"));
     }
 
     @Override
