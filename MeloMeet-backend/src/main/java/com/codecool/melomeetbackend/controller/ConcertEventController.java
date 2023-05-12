@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/events/")
+@RequestMapping("/events")
 public class ConcertEventController {
 
     private final ConcertEventService concertEventService;
@@ -23,7 +23,7 @@ public class ConcertEventController {
         this.concertEventService = concertEventService;
     }
 
-    @PostMapping("concertEvent")
+    @PostMapping("")
     public ResponseEntity<?> addNewConcertEvent(@RequestBody ConcertEventDTO concertEventDTO) {
 
         try {
@@ -37,7 +37,7 @@ public class ConcertEventController {
 
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<?> getAllConcertEvents() {
         try {
             List<ConcertEvent> concertEvents = concertEventService.findAll();
@@ -48,7 +48,7 @@ public class ConcertEventController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getConcertEventsByPerformer(@RequestParam String performer) {
+    public ResponseEntity<?> getConcertEventsByPerformer(@RequestParam("performer") String performer) {
 
         try {
             Set<ConcertEvent> concerts = concertEventService.findByPerformer(performer);
@@ -63,7 +63,7 @@ public class ConcertEventController {
         }
     }
 
-    @DeleteMapping("{concertEventId}")
+    @DeleteMapping("/{concertEventId}")
     public ResponseEntity<?> deleteConcertEventById(@PathVariable String concertEventId) {
         try {
             concertEventService.deleteById(concertEventId);
