@@ -3,10 +3,14 @@ package com.codecool.melomeetbackend.service;
 import com.codecool.melomeetbackend.dto.PerformerDTO;
 import com.codecool.melomeetbackend.model.Performer;
 
-public interface PerformerRepository {
+import java.util.Set;
+
+public interface PerformerService {
 
     Performer addNewPerformer(PerformerDTO performerDTO);
     Performer findPerformerById(String id);
     Performer findPerformerByName(String name);
-
+    Performer deleteById(String id);
+    Performer findPerformerByFractionOfName(String performerNameFraction);
+    Set<Performer> findByEventId(String id);
 }
