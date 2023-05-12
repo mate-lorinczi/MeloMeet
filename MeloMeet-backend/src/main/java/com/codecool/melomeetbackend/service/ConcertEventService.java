@@ -64,13 +64,10 @@ public class ConcertEventService implements EventService<ConcertEvent, ConcertEv
     @Override
     public Set<ConcertEvent> findByPerformer(String performer) {
         Performer performerFromString =
-                performerRepository.findByName(performer).orElseThrow(() -> new EntityNotFoundException("Performer with name " + performer + " not found!"));
+                performerRepository.findByName(performer).orElseThrow(() -> new EntityNotFoundException("Performer " +
+                        "with name " + performer + " not found!"));
         Set<ConcertEvent> concerts =
                 concertEventRepository.findConcertEventsByPerformersContains(performerFromString);
-
-        if(concerts.size() < 1) {
-            throw new EntityNotFoundException("Event with performer: " + performer + " not found");
-        }
 
         return concerts;
     }
