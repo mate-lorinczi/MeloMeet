@@ -14,6 +14,6 @@ public interface EventService<T extends Event, S extends EventDTO> {
     T addNewEvent(S eventDTO);
     T findById(String id);
     List<T> findAll();
-    Set<T> findByPerformer(Performer performer);
+    Set<T> findByPerformer(String performer);
     boolean deleteById(String id);
 }

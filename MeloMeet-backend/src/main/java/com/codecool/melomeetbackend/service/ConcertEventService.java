@@ -4,6 +4,7 @@ import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.ConcertEventRepository;
+import com.codecool.melomeetbackend.repository.PerformerRepository;
 import com.codecool.melomeetbackend.service.mappers.ConcertEventMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,16 @@ import java.util.UUID;
 public class ConcertEventService implements EventService<ConcertEvent, ConcertEventDTO>{
     private final ConcertEventRepository concertEventRepository;
     private final ConcertEventMapper concertEventMapper;
+    private final PerformerRepository performerRepository;
 
     @Autowired
     public ConcertEventService(ConcertEventRepository concertEventRepository,
-                               ConcertEventMapper concertEventMapper) {
+                               ConcertEventMapper concertEventMapper,
+                                PerformerRepository performerRepository
+    ) {
         this.concertEventRepository = concertEventRepository;
         this.concertEventMapper = concertEventMapper;
+        this.performerRepository = performerRepository;
     }
 
     @Override
@@ -57,9 +62,11 @@ public class ConcertEventService implements EventService<ConcertEvent, ConcertEv
     }
 
     @Override
-    public Set<ConcertEvent> findByPerformer(Performer performer) {
+    public Set<ConcertEvent> findByPerformer(String performer) {
+        Performer performerFromString =
+                performerRepository.findByName(performer).orElseThrow(() -> new EntityNotFoundException("Performer with name " + performer + " not found!"));
         Set<ConcertEvent> concerts =
-                concertEventRepository.findConcertEventsByPerformersContains(performer);
+                concertEventRepository.findConcertEventsByPerformersContains(performerFromString);
 
         if(concerts.size() < 1) {
             throw new EntityNotFoundException("Event with performer: " + performer + " not found");

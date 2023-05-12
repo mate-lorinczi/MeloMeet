@@ -1,9 +1,8 @@
 package com.codecool.melomeetbackend.model.eventModel;
 
 import com.codecool.melomeetbackend.model.Performer;
+import com.codecool.melomeetbackend.model.Venue;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +25,10 @@ public abstract class Event {
     @Column
     private LocalDateTime endDateAndTime;
     @Column
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn
     private Set<Performer> performers;
+    @JoinColumn
+    @ManyToOne
+    private Venue venue;
 }
