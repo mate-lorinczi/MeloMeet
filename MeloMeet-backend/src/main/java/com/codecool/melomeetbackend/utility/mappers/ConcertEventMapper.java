@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.service.mappers;
+package com.codecool.melomeetbackend.utility.mappers;
 
 import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
