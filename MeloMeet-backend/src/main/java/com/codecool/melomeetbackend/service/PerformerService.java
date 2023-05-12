@@ -11,6 +11,6 @@ public interface PerformerService {
     Performer findPerformerById(String id);
     Performer findPerformerByName(String name);
     Performer deleteById(String id);
-    Performer findPerformerByFractionOfName(String performerNameFraction);
+    Set<Performer> findPerformersByFractionOfName(String performerNameFraction);
     Set<Performer> findByEventId(String id);
 }

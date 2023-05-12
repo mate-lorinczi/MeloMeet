@@ -50,6 +50,8 @@ public class PerformerServiceImpl implements PerformerService {
     public Performer findPerformerByName(String name) {
         Performer performer =
                 performerRepository.findByName(name).orElseThrow(() -> new EntityNotFoundException("Performer with name " + name + " not found!"));
+
+        return performer;
     }
 
     @Override
@@ -58,8 +60,11 @@ public class PerformerServiceImpl implements PerformerService {
     }
 
     @Override
-    public Performer findPerformerByFractionOfName(String performerNameFraction) {
-        return null;
+    public Set<Performer> findPerformersByFractionOfName(String performerNameFraction) {
+        Set<Performer> performerSet =
+                performerRepository.findAllByNameContaining(performerNameFraction);
+
+        return performerSet;
     }
 
     @Override
