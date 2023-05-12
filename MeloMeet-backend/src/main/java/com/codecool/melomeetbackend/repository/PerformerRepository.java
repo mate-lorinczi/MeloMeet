@@ -11,4 +11,5 @@ import java.util.UUID;
 public interface PerformerRepository extends JpaRepository<Performer, UUID> {
 
     Optional<Performer> findByName(String name);
+    boolean existsByName(String name);
 }
