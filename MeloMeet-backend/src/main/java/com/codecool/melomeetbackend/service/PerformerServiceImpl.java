@@ -74,5 +74,7 @@ public class PerformerServiceImpl implements PerformerService {
     public Set<Performer> findByEventId(String id) {
 
         Set<Performer> performersById = eventService.findAllPerormersByEventId(id);
+
+        return performersById;
     }
 }
