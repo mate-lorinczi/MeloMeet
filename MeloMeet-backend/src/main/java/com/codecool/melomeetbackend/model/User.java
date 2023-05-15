@@ -27,7 +27,7 @@ public class User {
     private String username;
     @Column(nullable = false)
     private String password;
-    @Column
+    @Column(nullable = false)
     private String email;
     @Column
     @CreationTimestamp
