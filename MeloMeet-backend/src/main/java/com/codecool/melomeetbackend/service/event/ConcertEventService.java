@@ -1,11 +1,11 @@
-package com.codecool.melomeetbackend.service;
+package com.codecool.melomeetbackend.service.event;
 
 import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.ConcertEventRepository;
 import com.codecool.melomeetbackend.repository.PerformerRepository;
-import com.codecool.melomeetbackend.utility.mappers.ConcertEventMapper;
+import com.codecool.melomeetbackend.utility.mappers.eventMapper.ConcertEventMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 @Service
-public class ConcertEventService implements EventService<ConcertEvent, ConcertEventDTO>{
+public class ConcertEventService implements EventService<ConcertEvent, ConcertEventDTO> {
     private final ConcertEventRepository concertEventRepository;
     private final ConcertEventMapper concertEventMapper;
     private final PerformerRepository performerRepository;

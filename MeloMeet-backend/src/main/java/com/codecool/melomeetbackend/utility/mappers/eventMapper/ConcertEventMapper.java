@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.utility.mappers;
+package com.codecool.melomeetbackend.utility.mappers.eventMapper;
 
 import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEventDTO>{
+public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEventDTO> {
 
     private final PerformerRepository performerRepository;
     private final StyleRepository styleRepository;

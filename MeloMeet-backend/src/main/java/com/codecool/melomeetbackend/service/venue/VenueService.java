@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.service;
+package com.codecool.melomeetbackend.service.venue;
 
 import com.codecool.melomeetbackend.dto.venue.NewVenueDTO;
 import com.codecool.melomeetbackend.dto.venue.VenueDTO;
@@ -12,6 +12,6 @@ public interface VenueService {
     VenueDTO findById(UUID uuid);
     Venue addNewVenue(NewVenueDTO newVenueDTO);
     Set<VenueDTO> findAll();
-    
+
 
 }
