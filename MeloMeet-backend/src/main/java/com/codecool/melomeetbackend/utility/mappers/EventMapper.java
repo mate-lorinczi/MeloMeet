@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.service.mappers;
+package com.codecool.melomeetbackend.utility.mappers;
 
 import com.codecool.melomeetbackend.dto.events.EventDTO;
 import com.codecool.melomeetbackend.model.eventModel.Event;

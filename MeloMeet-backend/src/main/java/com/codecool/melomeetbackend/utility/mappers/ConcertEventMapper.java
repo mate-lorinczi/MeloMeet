@@ -1,29 +1,37 @@
-package com.codecool.melomeetbackend.service.mappers;
+package com.codecool.melomeetbackend.utility.mappers;
 
 import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.Style;
+import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.PerformerRepository;
 import com.codecool.melomeetbackend.repository.StyleRepository;
+import com.codecool.melomeetbackend.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEventDTO>{
 
     private final PerformerRepository performerRepository;
     private final StyleRepository styleRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public ConcertEventMapper(PerformerRepository performerRepository,
-                              StyleRepository styleRepository) {
+                              StyleRepository styleRepository,
+                              UserRepository userRepository
+    ) {
         this.performerRepository = performerRepository;
         this.styleRepository = styleRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -32,6 +40,7 @@ public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEven
         LocalDateTime endDateAndTime = eventDTO.getEndDateAndTime();
         Set<Performer> performers = getPerformers(eventDTO.getPerformers());
         Set<Style> styleSet = getStyles(eventDTO.getStyles());
+        User creator = getUser(eventDTO.getCreatedBy());
 
         ConcertEvent concertEvent = new ConcertEvent();
         concertEvent.setStyles(styleSet);
@@ -64,5 +73,13 @@ public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEven
         });
 
         return styleSet;
+    }
+
+    private User getUser(String id) {
+        UUID idASUUID = UUID.fromString(id);
+        User creator =
+                userRepository.findById(idASUUID).orElseThrow(() -> new EntityNotFoundException(
+                        "User with id: " + id + " not found"));
+        return creator;
     }
 }

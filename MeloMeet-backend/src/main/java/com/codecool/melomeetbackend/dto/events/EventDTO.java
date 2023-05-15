@@ -12,4 +12,5 @@ public abstract class EventDTO {
     private LocalDateTime startDateAndTime;
     private LocalDateTime endDateAndTime;
     private Set<String> performers;
+    private String createdBy;
 }
