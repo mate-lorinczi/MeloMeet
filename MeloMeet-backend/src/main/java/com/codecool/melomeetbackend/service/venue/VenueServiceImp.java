@@ -8,6 +8,7 @@ import com.codecool.melomeetbackend.repository.VenueRepository;
 import com.codecool.melomeetbackend.service.venue.VenueService;
 import com.codecool.melomeetbackend.utility.mappers.venueMapper.VenueMapper;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,13 @@ public class VenueServiceImp implements VenueService {
     }
 
     @Override
-    public VenueDTO findById(UUID uuid) {
-        return null;
+    public VenueDTO findById(String uuid) {
+        Venue venue =
+                venueRepository.findById(UUID.fromString(uuid)).orElseThrow(() -> new EntityNotFoundException("Venue with id " + uuid + " not found!"));
+
+        VenueDTO venueDTO = venueMapper.venueToVenueDTO(venue);
+
+        return venueDTO;
     }
 
     @Override

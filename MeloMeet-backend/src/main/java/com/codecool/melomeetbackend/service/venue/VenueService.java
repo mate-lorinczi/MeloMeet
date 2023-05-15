@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface VenueService {
 
-    VenueDTO findById(UUID uuid);
+    VenueDTO findById(String uuid);
     Venue addNewVenue(NewVenueDTO newVenueDTO);
     Set<VenueDTO> findAll();
 
