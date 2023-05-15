@@ -15,4 +15,5 @@ public interface ConcertEventRepository extends JpaRepository<ConcertEvent, UUID
     Set<ConcertEvent> findConcertEventsByPerformersContains(Performer performer);
     @Transactional
     int deleteByEventId(UUID uuid);
+    Set<Performer>
 }

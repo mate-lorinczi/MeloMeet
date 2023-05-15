@@ -82,4 +82,11 @@ public class ConcertEventService implements EventService<ConcertEvent, ConcertEv
             return true;
         }
     }
+
+    @Override
+    public Set<Performer> findAllPerormersByEventId(String id) {
+        ConcertEvent concertEvent = this.findById(id);
+
+        return concertEvent.getPerformers();
+    }
 }

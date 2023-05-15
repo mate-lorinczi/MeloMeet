@@ -15,13 +15,16 @@ import java.util.UUID;
 @Service
 public class PerformerServiceImpl implements PerformerService {
 
+    private final ConcertEventService eventService;
     private final PerformerMapper performerMapper;
     private final PerformerRepository performerRepository;
 
     @Autowired
-    public PerformerServiceImpl(PerformerMapper performerMapper, PerformerRepository performerRepository) {
+    public PerformerServiceImpl(PerformerMapper performerMapper,
+                                PerformerRepository performerRepository, ConcertEventService eventService) {
         this.performerMapper = performerMapper;
         this.performerRepository = performerRepository;
+        this.eventService = eventService;
     }
 
     @Override
@@ -69,6 +72,7 @@ public class PerformerServiceImpl implements PerformerService {
 
     @Override
     public Set<Performer> findByEventId(String id) {
-        return null;
+
+        Set<Performer> performersById = eventService.findAllPerormersByEventId(id);
     }
 }
