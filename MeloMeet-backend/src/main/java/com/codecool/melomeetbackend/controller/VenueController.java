@@ -54,7 +54,21 @@ public class VenueController {
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(Set.of());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request.");
         }
+    }
+
+    @GetMapping("/{venueId}")
+    public ResponseEntity<?> getVenueById(@PathVariable String venueId) {
+        try {
+            VenueDTO venueDTO = venueService.findById(venueId);
+
+            return ResponseEntity.status(HttpStatus.OK).body(venueDTO);
+        } catch (EntityNotFoundException e) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request.");
+        }
+
     }
 }
