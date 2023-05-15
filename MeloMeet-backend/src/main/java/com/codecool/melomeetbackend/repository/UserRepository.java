@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<com.codecool.melomeetbackend.model.User, UUID> {
+
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 }
