@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 @Repository
 public interface VenueRepository extends JpaRepository<Venue, UUID> {
+
+    boolean existsByAddressAndCityAndPostalCode(String address, String city, String postalCode);
 }
