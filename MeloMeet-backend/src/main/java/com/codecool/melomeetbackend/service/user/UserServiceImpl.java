@@ -6,11 +6,12 @@ import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.repository.UserRepository;
 import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
 import com.codecool.melomeetbackend.utility.mappers.userMapper.UserMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -44,7 +45,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserByUserId(String userId) {
-        return null;
+        UUID userUUID = UUID.fromString(userId);
+        User user =
+                userRepository.findById(userUUID).orElseThrow(() -> new EntityNotFoundException(
+                        "User with id " + userId + " not found!"));
+
+        UserDTO userDTO = userMapper.userEntityToUserDTO(user);
+
+        return userDTO;
     }
 
     @Override
