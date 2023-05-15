@@ -46,6 +46,6 @@ public class UserMapperImpl implements UserMapper{
        UserDTO userDTO = new UserDTO(user.getUserID().toString(), user.getUsername(), user.getEmail(),
                user.getDateOfRegistration(), user.isAdmin(), user.isBanned());
 
-       return
+       return userDTO;
     }
 }
