@@ -1,9 +1,10 @@
-package com.codecool.melomeetbackend.service;
+package com.codecool.melomeetbackend.service.performer;
 
 import com.codecool.melomeetbackend.dto.PerformerDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.repository.PerformerRepository;
-import com.codecool.melomeetbackend.utility.mappers.PerformerMapper;
+import com.codecool.melomeetbackend.service.event.ConcertEventService;
+import com.codecool.melomeetbackend.utility.mappers.performerMapper.PerformerMapper;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

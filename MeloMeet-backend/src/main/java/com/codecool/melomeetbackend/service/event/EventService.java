@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.service;
+package com.codecool.melomeetbackend.service.event;
 
 import com.codecool.melomeetbackend.dto.events.EventDTO;
 import com.codecool.melomeetbackend.model.Performer;

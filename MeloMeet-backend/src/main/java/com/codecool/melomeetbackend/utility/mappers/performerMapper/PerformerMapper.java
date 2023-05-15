@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.utility.mappers;
+package com.codecool.melomeetbackend.utility.mappers.performerMapper;
 
 import com.codecool.melomeetbackend.dto.PerformerDTO;
 import com.codecool.melomeetbackend.model.Performer;

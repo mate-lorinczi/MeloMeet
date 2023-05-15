@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.service;
+package com.codecool.melomeetbackend.service.performer;
 
 import com.codecool.melomeetbackend.dto.PerformerDTO;
 import com.codecool.melomeetbackend.model.Performer;

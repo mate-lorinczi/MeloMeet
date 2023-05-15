@@ -4,7 +4,11 @@ import com.codecool.melomeetbackend.model.Venue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Set;
 import java.util.UUID;
 @Repository
 public interface VenueRepository extends JpaRepository<Venue, UUID> {
+
+    boolean existsByAddressAndCityAndPostalCode(String address, String city, String postalCode);
+    Set<Venue> findAllByNameContaining(String name);
 }

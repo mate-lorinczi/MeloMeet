@@ -22,4 +22,6 @@ public class Venue {
     private String address;
     @Column
     private boolean isOpenAir;
+    @Column
+    private String name;
 }

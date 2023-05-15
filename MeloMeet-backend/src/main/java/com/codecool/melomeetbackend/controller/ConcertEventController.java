@@ -2,7 +2,7 @@ package com.codecool.melomeetbackend.controller;
 
 import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
-import com.codecool.melomeetbackend.service.ConcertEventService;
+import com.codecool.melomeetbackend.service.event.ConcertEventService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
