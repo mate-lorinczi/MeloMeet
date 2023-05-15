@@ -43,4 +43,18 @@ public class VenueController {
 
         return ResponseEntity.status(HttpStatus.OK).body(venueDTOSet);
     }
+
+    @GetMapping("")
+    public ResponseEntity<?> getVenuesByNameFraction(@RequestParam String name) {
+
+        try {
+            Set<VenueDTO> venueDTOSet = venueService.findAllContainingString(name);
+
+            return ResponseEntity.status(HttpStatus.OK).body(venueDTOSet);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(Set.of());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request");
+        }
+    }
 }
