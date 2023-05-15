@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface VenueService {
 
     VenueDTO findById(String uuid);
-    Venue addNewVenue(NewVenueDTO newVenueDTO);
+    VenueDTO addNewVenue(NewVenueDTO newVenueDTO);
     Set<VenueDTO> findAll();
     Set<VenueDTO> findAllContainingString(String searchName);
 

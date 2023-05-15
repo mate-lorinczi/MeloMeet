@@ -39,7 +39,7 @@ public class VenueServiceImp implements VenueService {
     }
 
     @Override
-    public Venue addNewVenue(NewVenueDTO newVenueDTO) {
+    public VenueDTO addNewVenue(NewVenueDTO newVenueDTO) {
 
         WholeAddress wholeAddress = newVenueDTO.wholeAddress();
 
@@ -52,8 +52,11 @@ public class VenueServiceImp implements VenueService {
         }
 
         Venue venue = venueMapper.newVenueDTOToVenue(newVenueDTO);
+        Venue savedVenue = venueRepository.save(venue);
 
-        return venueRepository.save(venue);
+        VenueDTO venueDTO = venueMapper.venueToVenueDTO(savedVenue);
+
+        return venueDTO;
     }
 
     @Override
