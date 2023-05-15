@@ -64,4 +64,17 @@ public class VenueServiceImp implements VenueService {
 
         return venueDTOSet;
     }
+
+    @Override
+    public Set<VenueDTO> findAllContainingString(String searchName) {
+
+        Set<VenueDTO> venues =
+                venueRepository.findAllByNameContaining(searchName).stream().map(venueMapper::venueToVenueDTO).collect(Collectors.toSet());
+
+        if(venues.size() < 1) {
+            throw new EntityNotFoundException("Venue with name containing string: " + searchName + " not found");
+        }
+
+        return venues;
+    }
 }
