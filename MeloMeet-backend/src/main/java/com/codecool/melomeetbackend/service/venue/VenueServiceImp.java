@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 public class VenueServiceImp implements VenueService {
 
@@ -51,6 +53,9 @@ public class VenueServiceImp implements VenueService {
     @Override
     public Set<VenueDTO> findAll() {
 
-        return null;
+        Set<VenueDTO> venueDTOSet =
+                venueRepository.findAll().stream().map(venueMapper::venueToVenueDTO).collect(Collectors.toSet());
+
+        return venueDTOSet;
     }
 }
