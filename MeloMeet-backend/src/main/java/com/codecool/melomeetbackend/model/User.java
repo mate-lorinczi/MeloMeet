@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 
 import java.sql.Timestamp;
 import java.util.Set;
@@ -23,20 +24,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userID;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false)
     private String password;
-    @Column
+    @Column(nullable = false, unique = true)
     private String email;
     @Column
     @CreationTimestamp
     private Timestamp dateOfRegistration;
     @Column
     private boolean isAdmin;
-    @Column
     @JoinColumn
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<User> friends;
     @Column
