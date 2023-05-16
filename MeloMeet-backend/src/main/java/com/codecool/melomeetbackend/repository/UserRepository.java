@@ -13,4 +13,5 @@ public interface UserRepository extends JpaRepository<com.codecool.melomeetbacke
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     Optional<User> findByUsername(String username);
+    Set<User> findAllByUsernameContaining(String searchString);
 }

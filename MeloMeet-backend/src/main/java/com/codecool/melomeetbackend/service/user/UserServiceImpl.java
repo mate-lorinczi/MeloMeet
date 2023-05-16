@@ -125,6 +125,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<UserDTO> getUsersBySearchString(String searchString) {
-        return null;
+
+         Set<User> userSet = userRepository.findAllByUsernameContaining(searchString);
+
+         if(userSet.size() < 1) {
+             throw new EntityNotFoundException("No user found with name containing string: " + searchString);
+         }
+
+         return userSet.stream().map(userMapper::userEntityToUserDTO).collect(Collectors.toSet());
     }
 }
