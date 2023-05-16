@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 
 import java.sql.Timestamp;
 import java.util.Set;
@@ -34,9 +35,8 @@ public class User {
     private Timestamp dateOfRegistration;
     @Column
     private boolean isAdmin;
-    @Column
     @JoinColumn
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<User> friends;
     @Column

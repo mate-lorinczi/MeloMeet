@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -45,19 +46,40 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserByUserId(String userId) {
-        UUID userUUID = UUID.fromString(userId);
-        User user =
-                userRepository.findById(userUUID).orElseThrow(() -> new EntityNotFoundException(
-                        "User with id " + userId + " not found!"));
+        User user;
+        try {
+            user = queryUserById(userId);
+        } catch (EntityNotFoundException e) {
+            throw e;
+        }
+
 
         UserDTO userDTO = userMapper.userEntityToUserDTO(user);
 
         return userDTO;
     }
 
+    private User queryUserById(String userId) {
+        UUID userUUID = UUID.fromString(userId);
+        User user =
+                userRepository.findById(userUUID).orElseThrow(() -> new EntityNotFoundException(
+                        "User with id " + userId + " not found!"));
+        return user;
+    }
+
     @Override
     public Set<UserDTO> getFriendsByUserId(String userId) {
-        return null;
+        User user;
+        try {
+            user = queryUserById(userId);
+
+        } catch (EntityNotFoundException e) {
+            throw e;
+        }
+
+        Set<UserDTO> friends = user.getFriends().stream().map(userMapper::userEntityToUserDTO).collect(Collectors.toSet());
+
+        return friends;
     }
 
     @Override
