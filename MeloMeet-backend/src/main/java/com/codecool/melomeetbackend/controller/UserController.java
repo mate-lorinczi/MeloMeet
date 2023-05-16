@@ -98,4 +98,15 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
         }
     }
+
+    @GetMapping("")
+    public ResponseEntity<?> getUsersBySearchStringOfName(@RequestParam String name) {
+        try {
+            Set<UserDTO> userDTOS = userService.getUsersBySearchString(name);
+
+            return ResponseEntity.status(HttpStatus.OK).body(userDTOS);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }
