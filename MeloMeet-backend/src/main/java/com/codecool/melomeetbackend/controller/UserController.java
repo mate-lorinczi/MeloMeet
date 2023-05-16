@@ -77,4 +77,25 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
         }
     }
+
+    @PatchMapping("{requestSenderId}/friends/{requestReceiverId}")
+    public ResponseEntity<?> addFriend(
+            @PathVariable String requestSenderId,
+            @PathVariable String requestReceiverId
+                                       ) {
+        try {
+            boolean result = userService.addFriend(requestSenderId, requestReceiverId);
+
+            if (!result) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server " +
+                        "Error!");
+            } else {
+                return ResponseEntity.status(HttpStatus.OK).body("Friend added!");
+            }
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
+        }
+    }
 }
