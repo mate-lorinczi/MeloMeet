@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -30,6 +32,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CREATED).body(addedUser);
         } catch (UserRegistrationException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
         }
     }
 
@@ -42,6 +46,22 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(userDTO);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
+        }
+    }
+
+    @GetMapping("/{userId}/friends")
+    public ResponseEntity<?> getFriendsByUserId(@PathVariable String userId) {
+
+        try {
+            Set<UserDTO> friends = userService.getFriendsByUserId(userId);
+
+            return ResponseEntity.status(HttpStatus.OK).body(friends);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
         }
     }
 }
