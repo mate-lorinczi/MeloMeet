@@ -14,4 +14,5 @@ public interface UserService {
     UserDTO updateUser(UserDTO userDTO);
     boolean addFriend(String friendRequestSenderId, String friendRequestReceiverId);
     UserDTO getUserByUsername(String username);
+    Set<UserDTO> getUsersBySearchString(String searchString);
 }

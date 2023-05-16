@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
     public boolean addFriend(String friendRequestSenderId, String friendRequestReceiverId) {
         User requestSender;
         User requestReceiver;
-        
+
         try {
             requestSender = queryUserById(friendRequestSenderId);
             requestReceiver = queryUserById(friendRequestReceiverId);
@@ -115,6 +115,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserByUsername(String username) {
+        User user =
+                userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("User with username " + username + " not found!"));
+
+        UserDTO userDTO = userMapper.userEntityToUserDTO(user);
+
+        return userDTO;
+    }
+
+    @Override
+    public Set<UserDTO> getUsersBySearchString(String searchString) {
         return null;
     }
 }

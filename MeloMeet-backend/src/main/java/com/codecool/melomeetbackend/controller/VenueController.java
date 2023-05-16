@@ -65,7 +65,7 @@ public class VenueController {
 
             return ResponseEntity.status(HttpStatus.OK).body(venueDTO);
         } catch (EntityNotFoundException e) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request.");
         }
