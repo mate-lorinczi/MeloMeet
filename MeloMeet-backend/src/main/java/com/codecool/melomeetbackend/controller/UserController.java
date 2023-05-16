@@ -2,6 +2,7 @@ package com.codecool.melomeetbackend.controller;
 
 import com.codecool.melomeetbackend.dto.user.NewUserDTO;
 import com.codecool.melomeetbackend.dto.user.UserDTO;
+import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.service.user.UserService;
 import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
 import jakarta.persistence.EntityNotFoundException;
@@ -60,6 +61,18 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(friends);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
+        }
+    }
+
+    @PatchMapping("")
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
+
+        try {
+            UserDTO updatedUser = userService.updateUser(userDTO);
+
+            return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
         }
