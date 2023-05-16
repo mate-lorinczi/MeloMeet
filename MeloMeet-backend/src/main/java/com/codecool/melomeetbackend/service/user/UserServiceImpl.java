@@ -6,6 +6,7 @@ import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.repository.UserRepository;
 import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
 import com.codecool.melomeetbackend.utility.mappers.userMapper.UserMapper;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,7 +86,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
-        return null;
+        User user =
+                userRepository.getReferenceById(UUID.fromString(userDTO.userId()));
+
+        user.setUsername(userDTO.username());
+        user.setEmail(userDTO.email());
+
+        User updatedUser = userRepository.save(user);
+
+        UserDTO updatedUserDTO = userMapper.userEntityToUserDTO(updatedUser);
+
+        return updatedUserDTO;
     }
 
     @Override
