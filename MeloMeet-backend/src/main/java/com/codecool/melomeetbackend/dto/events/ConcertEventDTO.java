@@ -1,14 +1,11 @@
 package com.codecool.melomeetbackend.dto.events;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.codecool.melomeetbackend.dto.user.UserDTO;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
-
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class ConcertEventDTO extends EventDTO {
-
-    private Set<String> styles;
+public record ConcertEventDTO(String eventId, LocalDateTime startDateAndTime,
+                              LocalDateTime endDateAndTime,
+                              Set<String> performers, UserDTO createdBy, Set<String> styles) {
 }

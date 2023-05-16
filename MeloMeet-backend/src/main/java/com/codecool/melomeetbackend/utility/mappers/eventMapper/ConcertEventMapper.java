@@ -1,6 +1,5 @@
 package com.codecool.melomeetbackend.utility.mappers.eventMapper;
 
-import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.Style;
 import com.codecool.melomeetbackend.model.User;
@@ -18,7 +17,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEventDTO> {
+public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEventDTOs> {
 
     private final PerformerRepository performerRepository;
     private final StyleRepository styleRepository;
@@ -35,7 +34,7 @@ public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEven
     }
 
     @Override
-    public ConcertEvent mapDTOToEvent(ConcertEventDTO eventDTO) {
+    public ConcertEvent mapDTOToEvent(ConcertEventDTOs eventDTO) {
         LocalDateTime startDateAndTime = eventDTO.getStartDateAndTime();
         LocalDateTime endDateAndTime = eventDTO.getEndDateAndTime();
         Set<Performer> performers = getPerformers(eventDTO.getPerformers());

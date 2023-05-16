@@ -1,7 +1,7 @@
 package com.codecool.melomeetbackend.controller;
 
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
-import com.codecool.melomeetbackend.service.event.ConcertEventService;
+import com.codecool.melomeetbackend.service.event.ConcertEventServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -29,13 +29,13 @@ class ConcertEventControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ConcertEventService concertEventService;
+    private ConcertEventServiceImpl concertEventServiceImpl;
     @Test
     public void getAllConcertEvents() throws Exception {
 
         List<ConcertEvent> concertEventList = List.of(new ConcertEvent());
 
-        Mockito.when(concertEventService.findAll()).thenReturn(concertEventList);
+        Mockito.when(concertEventServiceImpl.findAll()).thenReturn(concertEventList);
 
         ResultActions response = mockMvc.perform(MockMvcRequestBuilders.get("/events/all"));
 
