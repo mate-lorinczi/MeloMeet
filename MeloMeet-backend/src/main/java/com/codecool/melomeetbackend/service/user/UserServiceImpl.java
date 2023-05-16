@@ -77,7 +77,8 @@ public class UserServiceImpl implements UserService {
             throw e;
         }
 
-        Set<UserDTO> friends = user.getFriends().stream().map(userMapper::userEntityToUserDTO).collect(Collectors.toSet());
+        Set<UserDTO> friends =
+                user.getFriends().stream().map(userMapper::userEntityToUserDTO).collect(Collectors.toSet());
 
         return friends;
     }
@@ -89,7 +90,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addFriend(String friendRequestSenderId, String friendRequestReceiverId) {
-        return false;
+        User requestSender;
+        User requestReceiver;
+        
+        try {
+            requestSender = queryUserById(friendRequestSenderId);
+            requestReceiver = queryUserById(friendRequestReceiverId);
+        } catch (EntityNotFoundException e) {
+            throw e;
+        }
+        try {
+            requestReceiver.getFriends().add(requestSender);
+            requestSender.getFriends().add(requestReceiver);
+
+            userRepository.save(requestReceiver);
+            userRepository.save(requestSender);
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     @Override
