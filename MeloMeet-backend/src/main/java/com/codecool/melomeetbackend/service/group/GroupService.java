@@ -5,10 +5,10 @@ import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
 
 public interface GroupService {
 
-    GroupDTO<ConcertEventDTOs> addNewGroupForAConcertEvent(NewGroupDTO newGroupDTO);
-    GroupDTO<ConcertEventDTOs> getAllOpenGroups();
-    GroupDTO<ConcertEventDTOs> getAllOpenGroupsByConcertEventId(String eventId);
-    GroupDTO<EventDTOs> getAllInvitedGroupsByUserId(String userId);
+    GroupDTO addNewGroupForAConcertEvent(NewGroupDTO newGroupDTO);
+    GroupDTO getAllOpenGroups();
+    GroupDTO getAllOpenGroupsByConcertEventId(String eventId);
+    GroupDTO getAllInvitedGroupsByUserId(String userId);
 
 
 }
