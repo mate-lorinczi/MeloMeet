@@ -7,5 +7,5 @@ import java.util.Set;
 
 public record NewConcertEventDTO(LocalDateTime startDateAndTime,
                                  LocalDateTime endDateAndTime,
-                                 Set<String> performers, UserDTO createdBy, Set<String> styles) {
+                                 Set<String> performers, String createdBy, Set<String> styles) {
 }

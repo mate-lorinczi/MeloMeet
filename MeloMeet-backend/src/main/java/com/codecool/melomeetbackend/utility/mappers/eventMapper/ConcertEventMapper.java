@@ -1,6 +1,7 @@
 package com.codecool.melomeetbackend.utility.mappers.eventMapper;
 
 import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
+import com.codecool.melomeetbackend.dto.events.NewConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.Style;
 import com.codecool.melomeetbackend.model.User;
@@ -65,6 +66,18 @@ public class ConcertEventMapper implements EventMapper {
                 concertEvent.getStyles());
 
         return concertEventDTO;
+    }
+
+    public ConcertEvent mapNewConcertEventDTOToCOncertEvent(NewConcertEventDTO newConcertEventDTO) {
+        ConcertEvent concertEvent = new ConcertEvent();
+
+        concertEvent.setStartDateAndTime(newConcertEventDTO.startDateAndTime());
+        concertEvent.setEndDateAndTime(newConcertEventDTO.endDateAndTime());
+        concertEvent.setPerformers(getPerformers(newConcertEventDTO.performers()));
+        concertEvent.setCreatedBy(getUser(newConcertEventDTO.createdBy()));
+        concertEvent.setStyles(getStyles(newConcertEventDTO.styles()));
+
+        return concertEvent;
     }
 
     private Set<Performer> getPerformers(Set<String> performers) {
