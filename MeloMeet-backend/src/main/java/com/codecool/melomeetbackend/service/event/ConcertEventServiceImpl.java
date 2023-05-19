@@ -1,5 +1,7 @@
 package com.codecool.melomeetbackend.service.event;
 
+import com.codecool.melomeetbackend.dto.PerformerDTO;
+import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.ConcertEventRepository;
@@ -29,9 +31,9 @@ public class ConcertEventServiceImpl implements ConcertEventServiceImpl {
     }
 
     @Override
-    public ConcertEventDTOs addNewEvent(ConcertEventDTOs eventDTO) {
+    public ConcertEventDTO addNewEvent(ConcertEventDTO eventDTO) {
 
-        if(eventDTO.getEndDateAndTime().isBefore(eventDTO.getStartDateAndTime())) {
+        if(eventDTO.endDateAndTime().isBefore(eventDTO.startDateAndTime())) {
             throw new IllegalArgumentException("End time cannot be before start time");
         }
 
@@ -49,19 +51,24 @@ public class ConcertEventServiceImpl implements ConcertEventServiceImpl {
     }
 
     @Override
-    public ConcertEvent findById(String id) {
+    public ConcertEventDTO getConcertEvenDTOtById(String id) {
 
+    }
+
+    private ConcertEvent findById(String id) {
         return concertEventRepository.findById(UUID.fromString(id)).orElseThrow(() -> new EntityNotFoundException("Event with id: " + id + " not found"));
     }
 
+    public
+
     @Override
-    public List<ConcertEvent> findAll() {
+    public List<ConcertEventDTO> findAll() {
 
         return concertEventRepository.findAll();
     }
 
     @Override
-    public Set<ConcertEvent> findByPerformer(String performer) {
+    public Set<ConcertEventDTO> findByPerformer(String performer) {
         Performer performerFromString =
                 performerRepository.findByName(performer).orElseThrow(() -> new EntityNotFoundException("Performer " +
                         "with name " + performer + " not found!"));

@@ -1,6 +1,10 @@
 package com.codecool.melomeetbackend.utility.mappers.eventMapper;
 
-public interface EventMapper<T extends Event, S extends EventDTOs> {
+import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
+import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 
-    T mapDTOToEvent(S eventDTO);
+public interface EventMapper {
+
+    ConcertEvent mapDTOToEvent(ConcertEventDTO eventDTO);
+    ConcertEventDTO mapConcertEventToConcertEventDTO(ConcertEvent concertEvent);
 }

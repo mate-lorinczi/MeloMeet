@@ -1,5 +1,6 @@
 package com.codecool.melomeetbackend.utility.mappers.eventMapper;
 
+import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.Style;
 import com.codecool.melomeetbackend.model.User;
@@ -7,6 +8,7 @@ import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.PerformerRepository;
 import com.codecool.melomeetbackend.repository.StyleRepository;
 import com.codecool.melomeetbackend.repository.UserRepository;
+import com.codecool.melomeetbackend.utility.mappers.userMapper.UserMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,29 +19,32 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEventDTOs> {
+public class ConcertEventMapper implements EventMapper {
 
     private final PerformerRepository performerRepository;
     private final StyleRepository styleRepository;
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Autowired
     public ConcertEventMapper(PerformerRepository performerRepository,
                               StyleRepository styleRepository,
-                              UserRepository userRepository
+                              UserRepository userRepository,
+                              UserMapper userMapper
     ) {
         this.performerRepository = performerRepository;
         this.styleRepository = styleRepository;
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
-    public ConcertEvent mapDTOToEvent(ConcertEventDTOs eventDTO) {
-        LocalDateTime startDateAndTime = eventDTO.getStartDateAndTime();
-        LocalDateTime endDateAndTime = eventDTO.getEndDateAndTime();
-        Set<Performer> performers = getPerformers(eventDTO.getPerformers());
-        Set<Style> styleSet = getStyles(eventDTO.getStyles());
-        User creator = getUser(eventDTO.getCreatedBy());
+    public ConcertEvent mapDTOToEvent(ConcertEventDTO eventDTO) {
+        LocalDateTime startDateAndTime = eventDTO.startDateAndTime();
+        LocalDateTime endDateAndTime = eventDTO.endDateAndTime();
+        Set<Performer> performers = eventDTO.performers();
+        Set<Style> styleSet = eventDTO.styles();
+        User creator = getUser(eventDTO.createdBy().userId());
 
         ConcertEvent concertEvent = new ConcertEvent();
         concertEvent.setStyles(styleSet);
@@ -48,6 +53,18 @@ public class ConcertEventMapper implements EventMapper<ConcertEvent, ConcertEven
         concertEvent.setEndDateAndTime(endDateAndTime);
 
         return concertEvent;
+    }
+
+    @Override
+    public ConcertEventDTO mapConcertEventToConcertEventDTO(ConcertEvent concertEvent) {
+        UUID eventId = concertEvent.getEventId();
+        ConcertEventDTO concertEventDTO = new ConcertEventDTO(eventId.toString(),
+                concertEvent.getStartDateAndTime(), concertEvent.getEndDateAndTime(),
+                concertEvent.getPerformers(),
+                userMapper.userEntityToUserDTO(concertEvent.getCreatedBy()),
+                concertEvent.getStyles());
+
+        return concertEventDTO;
     }
 
     private Set<Performer> getPerformers(Set<String> performers) {
