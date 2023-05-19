@@ -7,5 +7,5 @@ import java.util.Set;
 
 public record GroupDTO(String groupId, UserDTO creator, Set<UserDTO> members,
                                             boolean isOpen,
-                                            Set<UserDTO> invited, ConcertEventDTO concertEventDTO) {
+                                            Set<UserDTO> invited, String concertEventId) {
 }

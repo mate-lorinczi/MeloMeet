@@ -7,6 +7,5 @@ import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
 public interface GroupMapper {
 
     Group mapNewGroupDTOToGroup(NewGroupDTO newGroupDTO);
-    Group mapGroupDTOToGroup(GroupDTO groupDTO);
     GroupDTO mapGroupToGroupDTO(Group group);
 }
