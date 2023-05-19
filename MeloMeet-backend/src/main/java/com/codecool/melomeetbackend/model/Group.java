@@ -1,5 +1,6 @@
 package com.codecool.melomeetbackend.model;
 
+import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,5 +33,5 @@ public class Group {
     @JoinColumn
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Event event;
+    private ConcertEvent event;
 }
