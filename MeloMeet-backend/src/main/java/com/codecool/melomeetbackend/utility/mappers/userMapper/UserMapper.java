@@ -1,7 +1,7 @@
 package com.codecool.melomeetbackend.utility.mappers.userMapper;
 
-import com.codecool.melomeetbackend.dto.user.NewUserDTO;
-import com.codecool.melomeetbackend.dto.user.UserDTO;
+import com.codecool.melomeetbackend.service.dto.user.NewUserDTO;
+import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
 

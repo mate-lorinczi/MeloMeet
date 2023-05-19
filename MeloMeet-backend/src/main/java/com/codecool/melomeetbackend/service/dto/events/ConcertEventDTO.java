@@ -1,6 +1,6 @@
-package com.codecool.melomeetbackend.dto.events;
+package com.codecool.melomeetbackend.service.dto.events;
 
-import com.codecool.melomeetbackend.dto.user.UserDTO;
+import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.Style;
 

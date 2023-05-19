@@ -1,12 +1,11 @@
 package com.codecool.melomeetbackend.service.user;
 
-import com.codecool.melomeetbackend.dto.user.NewUserDTO;
-import com.codecool.melomeetbackend.dto.user.UserDTO;
+import com.codecool.melomeetbackend.service.dto.user.NewUserDTO;
+import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.repository.UserRepository;
 import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
 import com.codecool.melomeetbackend.utility.mappers.userMapper.UserMapper;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

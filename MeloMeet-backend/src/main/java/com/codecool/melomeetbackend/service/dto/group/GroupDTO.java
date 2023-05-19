@@ -1,6 +1,6 @@
-package com.codecool.melomeetbackend.dto.group;
+package com.codecool.melomeetbackend.service.dto.group;
 
-import com.codecool.melomeetbackend.dto.user.UserDTO;
+import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 
 import java.util.Set;
 

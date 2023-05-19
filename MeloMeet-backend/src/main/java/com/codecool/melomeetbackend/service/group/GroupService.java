@@ -1,7 +1,7 @@
 package com.codecool.melomeetbackend.service.group;
 
-import com.codecool.melomeetbackend.dto.group.GroupDTO;
-import com.codecool.melomeetbackend.dto.group.NewGroupDTO;
+import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
+import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
 
 public interface GroupService {
 

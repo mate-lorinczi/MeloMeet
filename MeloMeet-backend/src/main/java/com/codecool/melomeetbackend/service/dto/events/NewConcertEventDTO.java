@@ -1,6 +1,4 @@
-package com.codecool.melomeetbackend.dto.events;
-
-import com.codecool.melomeetbackend.dto.user.UserDTO;
+package com.codecool.melomeetbackend.service.dto.events;
 
 import java.time.LocalDateTime;
 import java.util.Set;

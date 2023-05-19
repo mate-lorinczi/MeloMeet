@@ -1,6 +1,7 @@
 package com.codecool.melomeetbackend.controller;
 
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
+import com.codecool.melomeetbackend.service.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.service.event.ConcertEventServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ConcertEventController {
     @GetMapping("/all")
     public ResponseEntity<?> getAllConcertEvents() {
         try {
-            List<ConcertEvent> concertEvents = concertEventServiceImpl.findAll();
+            List<ConcertEventDTO> concertEvents = concertEventServiceImpl.findAll();
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(concertEvents);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request!");
@@ -50,7 +51,7 @@ public class ConcertEventController {
     public ResponseEntity<?> getConcertEventsByPerformer(@RequestParam("performer") String performer) {
 
         try {
-            Set<ConcertEvent> concerts = concertEventServiceImpl.findByPerformer(performer);
+            Set<ConcertEventDTO> concerts = concertEventServiceImpl.findByPerformer(performer);
 
             if(concerts.size() < 1) {
                 return ResponseEntity.status(HttpStatus.OK).body("No event found for " + performer + " ");

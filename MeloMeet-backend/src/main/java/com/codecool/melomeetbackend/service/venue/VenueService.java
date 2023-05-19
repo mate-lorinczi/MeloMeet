@@ -1,11 +1,9 @@
 package com.codecool.melomeetbackend.service.venue;
 
-import com.codecool.melomeetbackend.dto.venue.NewVenueDTO;
-import com.codecool.melomeetbackend.dto.venue.VenueDTO;
-import com.codecool.melomeetbackend.model.Venue;
+import com.codecool.melomeetbackend.service.dto.venue.NewVenueDTO;
+import com.codecool.melomeetbackend.service.dto.venue.VenueDTO;
 
 import java.util.Set;
-import java.util.UUID;
 
 public interface VenueService {
 

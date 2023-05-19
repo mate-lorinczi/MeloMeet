@@ -1,7 +1,7 @@
 package com.codecool.melomeetbackend.controller;
 
-import com.codecool.melomeetbackend.dto.venue.NewVenueDTO;
-import com.codecool.melomeetbackend.dto.venue.VenueDTO;
+import com.codecool.melomeetbackend.service.dto.venue.NewVenueDTO;
+import com.codecool.melomeetbackend.service.dto.venue.VenueDTO;
 import com.codecool.melomeetbackend.service.venue.VenueService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;

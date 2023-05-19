@@ -1,8 +1,8 @@
 package com.codecool.melomeetbackend.utility.mappers.venueMapper;
 
-import com.codecool.melomeetbackend.dto.venue.NewVenueDTO;
-import com.codecool.melomeetbackend.dto.venue.VenueDTO;
-import com.codecool.melomeetbackend.dto.venue.WholeAddress;
+import com.codecool.melomeetbackend.service.dto.venue.NewVenueDTO;
+import com.codecool.melomeetbackend.service.dto.venue.VenueDTO;
+import com.codecool.melomeetbackend.service.dto.venue.WholeAddress;
 import com.codecool.melomeetbackend.model.Venue;
 import org.springframework.stereotype.Service;
 

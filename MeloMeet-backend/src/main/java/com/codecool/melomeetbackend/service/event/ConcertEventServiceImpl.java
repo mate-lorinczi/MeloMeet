@@ -1,7 +1,7 @@
 package com.codecool.melomeetbackend.service.event;
 
-import com.codecool.melomeetbackend.dto.PerformerDTO;
-import com.codecool.melomeetbackend.dto.events.ConcertEventDTO;
+import com.codecool.melomeetbackend.service.dto.events.ConcertEventDTO;
+import com.codecool.melomeetbackend.service.dto.events.NewConcertEventDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.ConcertEventRepository;
@@ -11,11 +11,14 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
-public class ConcertEventServiceImpl implements ConcertEventServiceImpl {
+public class ConcertEventServiceImpl implements ConcertEventService {
     private final ConcertEventRepository concertEventRepository;
     private final ConcertEventMapper concertEventMapper;
     private final PerformerRepository performerRepository;
@@ -31,13 +34,13 @@ public class ConcertEventServiceImpl implements ConcertEventServiceImpl {
     }
 
     @Override
-    public ConcertEventDTO addNewEvent(ConcertEventDTO eventDTO) {
+    public ConcertEventDTO addNewEvent(NewConcertEventDTO eventDTO) {
 
         if(eventDTO.endDateAndTime().isBefore(eventDTO.startDateAndTime())) {
             throw new IllegalArgumentException("End time cannot be before start time");
         }
 
-        ConcertEvent concertEvent = concertEventMapper.mapDTOToEvent(eventDTO);
+        ConcertEvent concertEvent = concertEventMapper.mapNewConcertEventDTOToCOncertEvent(eventDTO);
 
         ConcertEvent savedConcertEvent;
 
@@ -47,24 +50,29 @@ public class ConcertEventServiceImpl implements ConcertEventServiceImpl {
             throw e;
         }
 
-        return savedConcertEvent;
+        ConcertEventDTO concertEventDTO =
+                concertEventMapper.mapConcertEventToConcertEventDTO(savedConcertEvent);
+
+        return concertEventDTO;
     }
 
     @Override
     public ConcertEventDTO getConcertEvenDTOtById(String id) {
+        ConcertEvent concertEvent = this.findById(id);
 
+        return concertEventMapper.mapConcertEventToConcertEventDTO(concertEvent);
     }
 
     private ConcertEvent findById(String id) {
         return concertEventRepository.findById(UUID.fromString(id)).orElseThrow(() -> new EntityNotFoundException("Event with id: " + id + " not found"));
     }
 
-    public
-
     @Override
     public List<ConcertEventDTO> findAll() {
+        var concertEvents =
+                concertEventRepository.findAll().stream().map(concertEventMapper::mapConcertEventToConcertEventDTO).toList();
 
-        return concertEventRepository.findAll();
+        return concertEvents;
     }
 
     @Override
@@ -72,8 +80,8 @@ public class ConcertEventServiceImpl implements ConcertEventServiceImpl {
         Performer performerFromString =
                 performerRepository.findByName(performer).orElseThrow(() -> new EntityNotFoundException("Performer " +
                         "with name " + performer + " not found!"));
-        Set<ConcertEvent> concerts =
-                concertEventRepository.findConcertEventsByPerformersContains(performerFromString);
+        var concerts =
+                concertEventRepository.findConcertEventsByPerformersContains(performerFromString).stream().map(concertEventMapper::mapConcertEventToConcertEventDTO).collect(Collectors.toSet());
 
         return concerts;
     }
