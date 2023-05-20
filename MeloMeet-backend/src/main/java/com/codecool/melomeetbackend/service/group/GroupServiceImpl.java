@@ -1,6 +1,8 @@
 package com.codecool.melomeetbackend.service.group;
 
 import com.codecool.melomeetbackend.model.Group;
+import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
+import com.codecool.melomeetbackend.repository.ConcertEventRepository;
 import com.codecool.melomeetbackend.repository.GroupRepository;
 import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
 import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,14 +20,17 @@ public class GroupServiceImpl implements GroupService{
 
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
+    private final ConcertEventRepository concertEventRepository;
 
     @Autowired
     public GroupServiceImpl(
             GroupRepository groupRepository,
-            GroupMapper groupMapper
+            GroupMapper groupMapper,
+            ConcertEventRepository concertEventRepository
             ) {
         this.groupRepository = groupRepository;
         this.groupMapper = groupMapper;
+        this.concertEventRepository = concertEventRepository;
     }
 
     @Override
@@ -52,8 +58,13 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public GroupDTO getAllOpenGroupsByConcertEventId(String eventId) {
-        return null;
+    public Set<GroupDTO> getAllOpenGroupsByConcertEventId(String eventId) {
+        ConcertEvent concertEvent =
+                concertEventRepository.findById(UUID.fromString(eventId)).orElseThrow(() -> new EntityNotFoundException("Concert event with id " + eventId + " not found!"));
+        var openGroupsByConcertEvent =
+                groupRepository.findAllByOpenToNonInvitedIsTrueAndEvent(concertEvent);
+
+        return openGroupsByConcertEvent.stream().map(groupMapper::mapGroupToGroupDTO).collect(Collectors.toSet());
     }
 
     @Override
