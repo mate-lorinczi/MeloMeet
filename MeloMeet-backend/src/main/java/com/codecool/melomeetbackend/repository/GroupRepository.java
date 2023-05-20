@@ -17,3 +17,4 @@ public interface GroupRepository extends JpaRepository<Group, UUID> {
     Set<Group> findAllByOpenToNonInvitedIsTrueAndEvent(ConcertEvent concertEvent);
     Set<Group> findAllByInvitedContaining(User user);
 }
+

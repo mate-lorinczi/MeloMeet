@@ -84,11 +84,13 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public boolean inviteUserToGroup(String userId, String groupId) {
         Group group =
-                groupRepository.findById(UUID.fromString(groupId)).orElseThrow(() -> new EntityNotFoundException("Group with id: " + groupId + " not found!"));
+                groupRepository.findById(UUID.fromString(groupId))
+                        .orElseThrow(() -> new EntityNotFoundException("Group with id: " + groupId + " not found!"));
         var invitedList = group.getInvited();
 
         User user =
-                userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found!"));
+                userRepository.findById(UUID.fromString(userId))
+                        .orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found!"));
 
         invitedList.add(user);
         group.setInvited(invitedList);
@@ -100,6 +102,22 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public boolean acceptInvite(String userId, String groupId) {
-        return false;
+
+        Group group =
+                groupRepository.findById(UUID.fromString(groupId))
+                        .orElseThrow(() -> new EntityNotFoundException("Group with id: " + groupId + " not found!"));
+
+        User user =
+                userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new EntityNotFoundException("User" +
+                        " with id: " + userId + " not found!"));
+
+        if(!group.getInvited().contains(user)) {
+            throw new IllegalArgumentException("User is not invited!");
+        } else {
+            group.getInvited().remove(user);
+            group.getMembers().add(user);
+
+            return true;
+        }
     }
 }
