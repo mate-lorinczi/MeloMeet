@@ -9,6 +9,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 public class GroupServiceImpl implements GroupService{
 
@@ -40,8 +43,12 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public GroupDTO getAllOpenGroups() {
-        return null;
+    public Set<GroupDTO> getAllOpenGroups() {
+
+        var openGroups =
+                groupRepository.findAllByOpenToNonInvitedIsTrue().stream().map(groupMapper::mapGroupToGroupDTO).collect(Collectors.toSet());
+
+        return openGroups;
     }
 
     @Override
