@@ -2,6 +2,8 @@ package com.codecool.melomeetbackend.controller;
 
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.service.dto.events.ConcertEventDTO;
+import com.codecool.melomeetbackend.service.dto.events.NewConcertEventDTO;
+import com.codecool.melomeetbackend.service.event.ConcertEventService;
 import com.codecool.melomeetbackend.service.event.ConcertEventServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,18 @@ import java.util.Set;
 @RequestMapping("/events")
 public class ConcertEventController {
 
-    private final ConcertEventServiceImpl concertEventServiceImpl;
+    private final ConcertEventService concertEventServiceImpl;
 
     @Autowired
-    public ConcertEventController(ConcertEventServiceImpl concertEventServiceImpl) {
+    public ConcertEventController(ConcertEventService concertEventServiceImpl) {
         this.concertEventServiceImpl = concertEventServiceImpl;
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addNewConcertEvent(@RequestBody ConcertEventDTOs concertEventDTOs) {
+    public ResponseEntity<?> addNewConcertEvent(@RequestBody NewConcertEventDTO concertEventDTO) {
 
         try {
-            ConcertEvent concertEvent = concertEventServiceImpl.addNewEvent(concertEventDTOs);
+            ConcertEventDTO concertEvent = concertEventServiceImpl.addNewEvent(concertEventDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(concertEvent);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -66,7 +68,7 @@ public class ConcertEventController {
     @GetMapping("/{concertEventId}")
     public ResponseEntity<?> findConcertById(@PathVariable String concertEventId) {
         try {
-            ConcertEvent concertEvent = concertEventServiceImpl.findById(concertEventId);
+            ConcertEventDTO concertEvent = concertEventServiceImpl.getConcertEvenDTOtById(concertEventId);
 
             return ResponseEntity.status(HttpStatus.OK).body(concertEvent);
         } catch (EntityNotFoundException exception) {
