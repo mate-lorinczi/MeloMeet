@@ -46,6 +46,5 @@ public class GroupController {
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
         }
-
     }
 }
