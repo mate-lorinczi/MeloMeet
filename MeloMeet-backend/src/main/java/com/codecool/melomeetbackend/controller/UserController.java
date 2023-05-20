@@ -1,8 +1,9 @@
 package com.codecool.melomeetbackend.controller;
 
-import com.codecool.melomeetbackend.dto.user.NewUserDTO;
-import com.codecool.melomeetbackend.dto.user.UserDTO;
-import com.codecool.melomeetbackend.model.User;
+import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
+import com.codecool.melomeetbackend.service.dto.user.NewUserDTO;
+import com.codecool.melomeetbackend.service.dto.user.UserDTO;
+import com.codecool.melomeetbackend.service.group.GroupService;
 import com.codecool.melomeetbackend.service.user.UserService;
 import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,10 +19,12 @@ import java.util.Set;
 public class UserController {
 
     private final UserService userService;
+    private final GroupService groupService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, GroupService groupService) {
         this.userService = userService;
+        this.groupService = groupService;
     }
 
     @PostMapping("")
@@ -66,6 +69,22 @@ public class UserController {
         }
     }
 
+    /*
+    TODO: Might move this method to group controller.
+     */
+    @GetMapping("/{userId}/invited")
+    public ResponseEntity<?> getInvitedGroupsByUserId(@PathVariable String userId) {
+        try {
+            Set<GroupDTO> invitedGroups = groupService.getAllInvitedGroupsByUserId(userId);
+
+            return ResponseEntity.status(HttpStatus.OK).body(invitedGroups);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
+        }
+
+    }
+
+
     @PatchMapping("")
     public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
 
@@ -109,4 +128,5 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
 }

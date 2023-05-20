@@ -1,10 +1,9 @@
 package com.codecool.melomeetbackend.model;
 
-import com.codecool.melomeetbackend.model.eventModel.Event;
+import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -34,5 +33,5 @@ public class Group {
     @JoinColumn
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Event event;
+    private ConcertEvent event;
 }

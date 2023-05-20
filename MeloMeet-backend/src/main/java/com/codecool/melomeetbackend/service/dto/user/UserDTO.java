@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.dto.user;
+package com.codecool.melomeetbackend.service.dto.user;
 
 import java.sql.Timestamp;
 

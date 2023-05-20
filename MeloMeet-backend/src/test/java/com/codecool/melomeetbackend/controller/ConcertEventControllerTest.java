@@ -1,7 +1,11 @@
 package com.codecool.melomeetbackend.controller;
 
+import com.codecool.melomeetbackend.model.Performer;
+import com.codecool.melomeetbackend.model.Style;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
-import com.codecool.melomeetbackend.service.event.ConcertEventService;
+import com.codecool.melomeetbackend.service.dto.events.ConcertEventDTO;
+import com.codecool.melomeetbackend.service.dto.user.UserDTO;
+import com.codecool.melomeetbackend.service.event.ConcertEventServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -15,7 +19,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -29,13 +37,19 @@ class ConcertEventControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ConcertEventService concertEventService;
+    private ConcertEventServiceImpl concertEventServiceImpl;
     @Test
     public void getAllConcertEvents() throws Exception {
 
-        List<ConcertEvent> concertEventList = List.of(new ConcertEvent());
+        Set<Performer> performers = new HashSet<>();
+        UserDTO userDTO = new UserDTO("testUserId", "testUsername", "testEmail",
+                Timestamp.valueOf(LocalDateTime.now()), false, false);
+        Set<Style> styles = new HashSet<>();
 
-        Mockito.when(concertEventService.findAll()).thenReturn(concertEventList);
+        List<ConcertEventDTO> concertEventList = List.of(new ConcertEventDTO("testId",
+                LocalDateTime.now(), LocalDateTime.now(),  performers, userDTO, styles));
+
+        Mockito.when(concertEventServiceImpl.findAll()).thenReturn(concertEventList);
 
         ResultActions response = mockMvc.perform(MockMvcRequestBuilders.get("/events/all"));
 

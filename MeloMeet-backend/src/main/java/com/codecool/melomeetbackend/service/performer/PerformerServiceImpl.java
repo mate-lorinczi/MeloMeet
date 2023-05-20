@@ -1,9 +1,9 @@
 package com.codecool.melomeetbackend.service.performer;
 
-import com.codecool.melomeetbackend.dto.PerformerDTO;
+import com.codecool.melomeetbackend.service.dto.PerformerDTO;
 import com.codecool.melomeetbackend.model.Performer;
 import com.codecool.melomeetbackend.repository.PerformerRepository;
-import com.codecool.melomeetbackend.service.event.ConcertEventService;
+import com.codecool.melomeetbackend.service.event.ConcertEventServiceImpl;
 import com.codecool.melomeetbackend.utility.mappers.performerMapper.PerformerMapper;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,13 +16,13 @@ import java.util.UUID;
 @Service
 public class PerformerServiceImpl implements PerformerService {
 
-    private final ConcertEventService eventService;
+    private final ConcertEventServiceImpl eventService;
     private final PerformerMapper performerMapper;
     private final PerformerRepository performerRepository;
 
     @Autowired
     public PerformerServiceImpl(PerformerMapper performerMapper,
-                                PerformerRepository performerRepository, ConcertEventService eventService) {
+                                PerformerRepository performerRepository, ConcertEventServiceImpl eventService) {
         this.performerMapper = performerMapper;
         this.performerRepository = performerRepository;
         this.eventService = eventService;

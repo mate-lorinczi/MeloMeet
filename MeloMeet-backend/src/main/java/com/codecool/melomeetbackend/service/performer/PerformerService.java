@@ -1,6 +1,6 @@
 package com.codecool.melomeetbackend.service.performer;
 
-import com.codecool.melomeetbackend.dto.PerformerDTO;
+import com.codecool.melomeetbackend.service.dto.PerformerDTO;
 import com.codecool.melomeetbackend.model.Performer;
 
 import java.util.Set;

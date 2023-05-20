@@ -1,4 +1,4 @@
-package com.codecool.melomeetbackend.dto.venue;
+package com.codecool.melomeetbackend.service.dto.venue;
 
 public record WholeAddress(String city, String postalCode, String address) {
 }
