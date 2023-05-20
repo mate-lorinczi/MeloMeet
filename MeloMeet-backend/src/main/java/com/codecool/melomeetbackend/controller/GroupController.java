@@ -66,4 +66,24 @@ public class GroupController {
         }
     }
 
+    @PatchMapping("/{groupId}/accept/{userId}")
+    public ResponseEntity<?> acceptInvitationToGroup(
+            @PathVariable String groupId,
+            @PathVariable String userId
+    ) {
+        try {
+            boolean resultOfAccept = groupService.acceptInvite(userId, groupId);
+
+            if(resultOfAccept) {
+                return ResponseEntity.status(HttpStatus.OK).body("Invite accepted!");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the " +
+                        "request!");
+            }
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Could not accept request!");
+        }
+    }
 }
