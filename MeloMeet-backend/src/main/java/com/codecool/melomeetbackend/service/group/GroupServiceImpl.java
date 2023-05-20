@@ -1,9 +1,11 @@
 package com.codecool.melomeetbackend.service.group;
 
 import com.codecool.melomeetbackend.model.Group;
+import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.repository.ConcertEventRepository;
 import com.codecool.melomeetbackend.repository.GroupRepository;
+import com.codecool.melomeetbackend.repository.UserRepository;
 import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
 import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
 import com.codecool.melomeetbackend.utility.mappers.groupMapper.GroupMapper;
@@ -21,16 +23,19 @@ public class GroupServiceImpl implements GroupService{
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
     private final ConcertEventRepository concertEventRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public GroupServiceImpl(
             GroupRepository groupRepository,
             GroupMapper groupMapper,
-            ConcertEventRepository concertEventRepository
+            ConcertEventRepository concertEventRepository,
+            UserRepository userRepository
             ) {
         this.groupRepository = groupRepository;
         this.groupMapper = groupMapper;
         this.concertEventRepository = concertEventRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -68,8 +73,12 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public GroupDTO getAllInvitedGroupsByUserId(String userId) {
-        return null;
+    public Set<GroupDTO> getAllInvitedGroupsByUserId(String userId) {
+        User user =
+                userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found!"));
+        var invitedGroups = groupRepository.findAllByInvitedContaining(user);
+
+        return invitedGroups.stream().map(groupMapper::mapGroupToGroupDTO).collect(Collectors.toSet());
     }
 
     @Override

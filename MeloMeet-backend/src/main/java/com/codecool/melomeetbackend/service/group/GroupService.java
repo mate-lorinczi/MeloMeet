@@ -10,7 +10,7 @@ public interface GroupService {
     GroupDTO addNewGroupForAConcertEvent(NewGroupDTO newGroupDTO);
     Set<GroupDTO> getAllOpenGroups();
     Set<GroupDTO> getAllOpenGroupsByConcertEventId(String eventId);
-    GroupDTO getAllInvitedGroupsByUserId(String userId);
+    Set<GroupDTO> getAllInvitedGroupsByUserId(String userId);
     boolean inviteUserToGroup(String userId, String groupId);
     boolean acceptInvite(String userId, String groupId);
 
