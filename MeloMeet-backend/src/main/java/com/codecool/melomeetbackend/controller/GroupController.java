@@ -4,6 +4,7 @@ import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
 import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
 import com.codecool.melomeetbackend.service.group.GroupService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ import java.util.Set;
 public class GroupController {
 
     private final GroupService groupService;
+
+    @Autowired
+    public GroupController(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @PostMapping("")
     public ResponseEntity<?> addNewGroup(NewGroupDTO newGroupDTO) {
