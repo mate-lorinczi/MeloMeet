@@ -9,6 +9,7 @@ public interface GroupService {
     GroupDTO getAllOpenGroups();
     GroupDTO getAllOpenGroupsByConcertEventId(String eventId);
     GroupDTO getAllInvitedGroupsByUserId(String userId);
-
+    boolean inviteUserToGroup(String userId, String groupId);
+    boolean acceptInvite(String userId, String groupId);
 
 }

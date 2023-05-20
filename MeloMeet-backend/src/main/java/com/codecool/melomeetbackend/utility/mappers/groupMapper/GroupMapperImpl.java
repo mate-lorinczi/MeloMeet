@@ -8,7 +8,6 @@ import com.codecool.melomeetbackend.repository.UserRepository;
 import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
 import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
 import com.codecool.melomeetbackend.service.dto.user.UserDTO;
-import com.codecool.melomeetbackend.service.user.UserService;
 import com.codecool.melomeetbackend.utility.mappers.userMapper.UserMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,11 @@ public class GroupMapperImpl implements GroupMapper{
     private final UserMapper userMapper;
 
     @Autowired
-    public GroupMapperImpl(UserRepository userRepository, ConcertEventRepository concertEventRepository) {
+    public GroupMapperImpl(UserRepository userRepository,
+                           ConcertEventRepository concertEventRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.concertEventRepository = concertEventRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
