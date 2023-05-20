@@ -83,7 +83,19 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public boolean inviteUserToGroup(String userId, String groupId) {
-        return false;
+        Group group =
+                groupRepository.findById(UUID.fromString(groupId)).orElseThrow(() -> new EntityNotFoundException("Group with id: " + groupId + " not found!"));
+        var invitedList = group.getInvited();
+
+        User user =
+                userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new EntityNotFoundException("User with id: " + userId + " not found!"));
+
+        invitedList.add(user);
+        group.setInvited(invitedList);
+
+        groupRepository.save(group);
+
+        return true;
     }
 
     @Override
