@@ -31,7 +31,14 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public RequestDTO generateNewFriendRequest(NewFriendRequestDTO newFriendRequestDTO) {
 
-        Request request = getRequest(newFriendRequestDTO);
+        Request request;
+
+        try {
+             request = getRequest(newFriendRequestDTO);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException(e.getMessage(), e);
+        }
+
 
         String link =
                 "/users/" + newFriendRequestDTO.getSenderId() + "/" + newFriendRequestDTO.getReceiverId();
@@ -44,7 +51,16 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestDTO generateNewGroupInviteRequest(NewInvitationDTO newInvitationDTO) {
-        Request request = getRequest(newInvitationDTO);
+
+        Request request;
+
+        try {
+            request = getRequest(newInvitationDTO);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException(e.getMessage(), e);
+        }
+
+
 
         String link =
                 "/groups/" + newInvitationDTO.getGroupId() + "/accept/" + newInvitationDTO.getReceiverId();
