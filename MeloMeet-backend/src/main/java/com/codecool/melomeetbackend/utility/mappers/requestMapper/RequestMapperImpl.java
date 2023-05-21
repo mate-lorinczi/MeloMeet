@@ -6,9 +6,10 @@ import com.codecool.melomeetbackend.service.dto.request.RequestDTO;
 import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.service.user.UserService;
 import com.codecool.melomeetbackend.utility.mappers.userMapper.UserMapper;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-
+@Service
 public class RequestMapperImpl implements RequestMapper{
 
     private final UserMapper userMapper;
