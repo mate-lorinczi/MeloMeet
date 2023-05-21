@@ -10,13 +10,23 @@ import com.codecool.melomeetbackend.service.dto.request.RequestDTO;
 import com.codecool.melomeetbackend.service.user.UserService;
 import com.codecool.melomeetbackend.utility.mappers.requestMapper.RequestMapper;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class RequestServiceImpl implements RequestService {
     private final UserService userService;
     private final RequestRepository requestRepository;
     private final RequestMapper requestMapper;
+
+    @Autowired
+    public RequestServiceImpl(UserService userService, RequestRepository requestRepository, RequestMapper requestMapper) {
+        this.userService = userService;
+        this.requestRepository = requestRepository;
+        this.requestMapper = requestMapper;
+    }
 
     @Override
     public RequestDTO generateNewFriendRequest(NewFriendRequestDTO newFriendRequestDTO) {
@@ -67,15 +77,18 @@ public class RequestServiceImpl implements RequestService {
         return request;
     }
 
-    private Request generateRequest()
-
     @Override
     public RequestDTO findRequestByRequestId(String requestId) {
-        return null;
+        Request request =
+                requestRepository.findById(UUID.fromString(requestId)).orElseThrow(() -> new EntityNotFoundException("Request with id: " + requestId + " not found!"));
+
+        return requestMapper.mapRequestToRequestDTO(request);
     }
 
     @Override
     public boolean deleteRequestByRequestId(String requestId) {
-        return false;
+
+        requestRepository.deleteById(UUID.fromString(requestId));
+        return true;
     }
 }
