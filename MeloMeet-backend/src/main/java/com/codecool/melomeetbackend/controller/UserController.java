@@ -45,7 +45,7 @@ public class UserController {
     public ResponseEntity<?> getUserByUserId(@PathVariable String userId) {
 
         try {
-            UserDTO userDTO = userService.getUserByUserId(userId);
+            UserDTO userDTO = userService.getUserDTOByUserId(userId);
 
             return ResponseEntity.status(HttpStatus.OK).body(userDTO);
         } catch (EntityNotFoundException e) {

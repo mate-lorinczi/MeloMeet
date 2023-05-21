@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserByUserId(String userId) {
+    public UserDTO getUserDTOByUserId(String userId) {
         User user;
         try {
             user = queryUserById(userId);
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
-    private User queryUserById(String userId) {
+    public User queryUserById(String userId) {
         UUID userUUID = UUID.fromString(userId);
         User user =
                 userRepository.findById(userUUID).orElseThrow(() -> new EntityNotFoundException(
@@ -97,6 +97,10 @@ public class UserServiceImpl implements UserService {
 
         return updatedUserDTO;
     }
+
+    /*
+    TODO: Integrate with request service.
+     */
 
     @Override
     public boolean addFriend(String friendRequestSenderId, String friendRequestReceiverId) {

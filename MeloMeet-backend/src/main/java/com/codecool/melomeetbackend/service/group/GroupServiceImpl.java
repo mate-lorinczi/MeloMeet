@@ -81,6 +81,9 @@ public class GroupServiceImpl implements GroupService{
         return invitedGroups.stream().map(groupMapper::mapGroupToGroupDTO).collect(Collectors.toSet());
     }
 
+    /*
+    TODO: Integrate with request service.
+     */
     @Override
     public boolean inviteUserToGroup(String userId, String groupId) {
         Group group =
