@@ -98,6 +98,10 @@ public class UserServiceImpl implements UserService {
         return updatedUserDTO;
     }
 
+    /*
+    TODO: Integrate with request service.
+     */
+
     @Override
     public boolean addFriend(String friendRequestSenderId, String friendRequestReceiverId) {
         User requestSender;
