@@ -64,7 +64,7 @@ class ConcertEventRepositoryTest {
     }
 
     @Test
-    void testNonNulls() {
+    void testNonNullAttributesReturnNonNull() {
 
         ConcertEvent concertEvent =
                 ConcertEvent.builder().createdBy(user).performers(Set.of(performer)).venue(venue).build();
@@ -77,6 +77,15 @@ class ConcertEventRepositoryTest {
                 () -> assertNotNull(savedConcertEvent.getPerformers()),
                 () -> assertNotNull(savedConcertEvent.getVenue())
                 );
+    }
+
+    @Test
+    void testNonNullAttributesThrowsErrorWhenSavedWithNull() {
+        ConcertEvent concertEvent = new ConcertEvent();
+
+        Exception e= assertThrows(Exception.class, () -> concertEventRepository.save(concertEvent));
+
+        System.out.println(e.getClass());
     }
 
     private boolean isValidUUID(UUID uuid) {
