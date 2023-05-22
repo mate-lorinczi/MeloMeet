@@ -26,7 +26,7 @@ public class Group {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> members;
     @Column
-    private boolean isOpenToNonInvited;
+    private boolean openToNonInvited;
     @JoinColumn
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> invited;

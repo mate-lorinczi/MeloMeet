@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Builder
 @Data
 @Table
 @NoArgsConstructor
@@ -21,18 +22,18 @@ public class ConcertEvent{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID eventId;
-    @Column
+    @Column()
     private LocalDateTime startDateAndTime;
-    @Column
+    @Column()
     private LocalDateTime endDateAndTime;
-    @Column
+    @Column(nullable = false)
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private Set<Performer> performers;
-    @JoinColumn
+    @JoinColumn(nullable = false)
     @ManyToOne
     private Venue venue;
-    @JoinColumn
+    @JoinColumn(nullable = false)
     @ManyToOne
     private User createdBy;
     @JoinColumn
