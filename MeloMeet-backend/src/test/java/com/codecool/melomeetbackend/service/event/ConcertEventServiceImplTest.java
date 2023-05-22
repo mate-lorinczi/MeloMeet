@@ -13,6 +13,7 @@ import com.codecool.melomeetbackend.service.dto.events.NewConcertEventDTO;
 import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.utility.mappers.eventMapper.ConcertEventMapper;
 import com.codecool.melomeetbackend.utility.mappers.eventMapper.EventMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.apache.catalina.core.ApplicationContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,5 +85,14 @@ class ConcertEventServiceImplTest {
         assertEquals(uuid.toString(), concertEventDTO.eventId());
         Mockito.verify(concertEventRepository, Mockito.times(1)).findById(Mockito.any());
         Mockito.verify(eventMapper, Mockito.times(1)).mapConcertEventToConcertEventDTO(Mockito.any());
+    }
+
+    @Test
+    public void testGetConcertEvenDTOtByIdWithNonExistentId() {
+        String uuid1 = UUID.randomUUID().toString();
+        String expectedErrorMessage = "Event with id: " + uuid1 + " not found";
+        EntityNotFoundException entityNotFoundException = assertThrows(EntityNotFoundException.class, () -> concertEventService.getConcertEvenDTOtById(uuid1));
+        Mockito.verify(concertEventRepository, Mockito.times(1)).findById(Mockito.any());
+        assertEquals(expectedErrorMessage, entityNotFoundException.getMessage());
     }
 }
