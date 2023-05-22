@@ -6,6 +6,8 @@ import com.codecool.melomeetbackend.model.eventModel.ConcertEvent;
 import com.codecool.melomeetbackend.service.dto.events.ConcertEventDTO;
 import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.service.event.ConcertEventServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -36,10 +38,15 @@ class ConcertEventControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private ConcertEventServiceImpl concertEventServiceImpl;
+
+
     @Test
-    public void getAllConcertEvents() throws Exception {
+    public void getAllConcertEventsSuccessfully() throws Exception {
 
         Set<Performer> performers = new HashSet<>();
         UserDTO userDTO = new UserDTO("testUserId", "testUsername", "testEmail",
@@ -53,6 +60,7 @@ class ConcertEventControllerTest {
 
         ResultActions response = mockMvc.perform(MockMvcRequestBuilders.get("/events/all"));
 
-        response.andDo(print()).andExpect(MockMvcResultMatchers.status().isAccepted());
+        response.andDo(print()).andExpectAll(MockMvcResultMatchers.status().isAccepted(),
+                MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(concertEventList)));
     }
 }

@@ -19,6 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
@@ -37,13 +38,13 @@ class ConcertEventMapperTest {
 
     @Autowired
     private EventMapper eventMapper;
-    @Mock
+    @MockBean
     private PerformerRepository performerRepository;
-    @Mock
+    @MockBean
     private StyleRepository styleRepository;
-    @Mock
+    @MockBean
     private UserRepository userRepository;
-    @Mock
+    @MockBean
     private UserMapper userMapper;
     private UserDTO userDTO;
 
