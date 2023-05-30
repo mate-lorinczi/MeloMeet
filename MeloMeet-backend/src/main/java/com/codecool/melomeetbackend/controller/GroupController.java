@@ -26,70 +26,48 @@ public class GroupController {
     @PostMapping("")
     public ResponseEntity<?> addNewGroup(NewGroupDTO newGroupDTO) {
 
-        try {
-            GroupDTO addedGroup = groupService.addNewGroupForAConcertEvent(newGroupDTO);
+        GroupDTO addedGroup = groupService.addNewGroupForAConcertEvent(newGroupDTO);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(addedGroup);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedGroup);
     }
 
     @GetMapping("/open")
     public ResponseEntity<?> getOpenGroups(@RequestParam(defaultValue = "") String eventId) {
 
-        try {
-            if (eventId.equals("")) {
-                Set<GroupDTO> openGroups = groupService.getAllOpenGroups();
+        if (eventId.equals("")) {
+            Set<GroupDTO> openGroups = groupService.getAllOpenGroups();
 
-                return ResponseEntity.status(HttpStatus.OK).body(openGroups);
-            } else {
-                Set<GroupDTO> openGroupsByEventId =
-                        groupService.getAllOpenGroupsByConcertEventId(eventId);
+            return ResponseEntity.status(HttpStatus.OK).body(openGroups);
+        } else {
+            Set<GroupDTO> openGroupsByEventId =
+                    groupService.getAllOpenGroupsByConcertEventId(eventId);
 
-                return ResponseEntity.status(HttpStatus.OK).body(openGroupsByEventId);
-            }
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
+            return ResponseEntity.status(HttpStatus.OK).body(openGroupsByEventId);
         }
     }
 
     @PatchMapping("/{groupId}/invite/{userId}")
-    public ResponseEntity<?> inviteUserToGroup(
-            @PathVariable String groupId,
-            @PathVariable String userId
-    ) {
-        try {
-            boolean resultOfInvitation = groupService.inviteUserToGroup(userId, groupId);
-            if (resultOfInvitation) {
-                return ResponseEntity.status(HttpStatus.OK).body("Successful invitation!");
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the " +
-                        "request!");
-            }
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    public ResponseEntity<?> inviteUserToGroup(@PathVariable String groupId,
+                                               @PathVariable String userId) {
+        boolean resultOfInvitation = groupService.inviteUserToGroup(userId, groupId);
+        if (resultOfInvitation) {
+            return ResponseEntity.status(HttpStatus.OK).body("Successful invitation!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the " +
+                    "request!");
         }
     }
 
     @PatchMapping("/{groupId}/accept/{userId}")
-    public ResponseEntity<?> acceptInvitationToGroup(
-            @PathVariable String groupId,
-            @PathVariable String userId
-    ) {
-        try {
-            boolean resultOfAccept = groupService.acceptInvite(userId, groupId);
+    public ResponseEntity<?> acceptInvitationToGroup(@PathVariable String groupId,
+                                                     @PathVariable String userId) {
+        boolean resultOfAccept = groupService.acceptInvite(userId, groupId);
 
-            if(resultOfAccept) {
-                return ResponseEntity.status(HttpStatus.OK).body("Invite accepted!");
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the " +
-                        "request!");
-            }
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Could not accept request!");
+        if (resultOfAccept) {
+            return ResponseEntity.status(HttpStatus.OK).body("Invite accepted!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the " +
+                    "request!");
         }
     }
 }

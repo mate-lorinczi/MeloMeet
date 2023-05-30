@@ -74,7 +74,7 @@ public class VenueServiceImp implements VenueService {
                 venueRepository.findAllByNameContaining(searchName).stream().map(venueMapper::venueToVenueDTO).collect(Collectors.toSet());
 
         if(venues.size() < 1) {
-            throw new EntityNotFoundException("Venue with name containing string: " + searchName + " not found");
+            return Set.of();
         }
 
         return venues;

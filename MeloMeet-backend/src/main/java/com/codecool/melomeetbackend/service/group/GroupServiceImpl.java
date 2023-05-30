@@ -8,6 +8,7 @@ import com.codecool.melomeetbackend.repository.GroupRepository;
 import com.codecool.melomeetbackend.repository.UserRepository;
 import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
 import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
+import com.codecool.melomeetbackend.utility.excepiton.UnauthorizedMethodException;
 import com.codecool.melomeetbackend.utility.mappers.groupMapper.GroupMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +116,7 @@ public class GroupServiceImpl implements GroupService{
                         " with id: " + userId + " not found!"));
 
         if(!group.getInvited().contains(user)) {
-            throw new IllegalArgumentException("User is not invited!");
+            throw new UnauthorizedMethodException("User is not invited!");
         } else {
             group.getInvited().remove(user);
             group.getMembers().add(user);

@@ -28,64 +28,42 @@ public class ConcertEventController {
     @PostMapping("")
     public ResponseEntity<?> addNewConcertEvent(@RequestBody NewConcertEventDTO concertEventDTO) {
 
-        try {
-            ConcertEventDTO concertEvent = concertEventServiceImpl.addNewEvent(concertEventDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(concertEvent);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request.");
-        }
+        ConcertEventDTO concertEvent = concertEventServiceImpl.addNewEvent(concertEventDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(concertEvent);
 
     }
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllConcertEvents() {
-        try {
-            List<ConcertEventDTO> concertEvents = concertEventServiceImpl.findAll();
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(concertEvents);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request!");
-        }
+        List<ConcertEventDTO> concertEvents = concertEventServiceImpl.findAll();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(concertEvents);
     }
 
     @GetMapping("")
     public ResponseEntity<?> getConcertEventsByPerformer(@RequestParam("performer") String performer) {
 
-        try {
-            Set<ConcertEventDTO> concerts = concertEventServiceImpl.findByPerformer(performer);
+        Set<ConcertEventDTO> concerts = concertEventServiceImpl.findByPerformer(performer);
 
-            if(concerts.size() < 1) {
-                return ResponseEntity.status(HttpStatus.OK).body("No event found for " + performer + " ");
-            }
-
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(concerts);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        if (concerts.size() < 1) {
+            return ResponseEntity.status(HttpStatus.OK).body("No event found for " + performer +
+                    " ");
         }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(concerts);
     }
 
     @GetMapping("/{concertEventId}")
     public ResponseEntity<?> findConcertById(@PathVariable String concertEventId) {
-        try {
-            ConcertEventDTO concertEvent = concertEventServiceImpl.getConcertEvenDTOtById(concertEventId);
+        ConcertEventDTO concertEvent =
+                concertEventServiceImpl.getConcertEvenDTOtById(concertEventId);
 
-            return ResponseEntity.status(HttpStatus.OK).body(concertEvent);
-        } catch (EntityNotFoundException exception) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Concert not found.");
-        } catch (Exception e) {
-            return  ResponseEntity.internalServerError().build();
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(concertEvent);
     }
 
     @DeleteMapping("/{concertEventId}")
     public ResponseEntity<?> deleteConcertEventById(@PathVariable String concertEventId) {
-        try {
-            concertEventServiceImpl.deleteById(concertEventId);
+        concertEventServiceImpl.deleteById(concertEventId);
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Concert with id: " + concertEventId + " deleted");
-        } catch (EntityNotFoundException exception) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Concert not found");
-        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Concert with id: " + concertEventId + " deleted");
     }
 }
