@@ -1,5 +1,6 @@
 package com.codecool.melomeetbackend.advice;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,8 +15,26 @@ public class ApplicationExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
-    public Map<String, String> handleEntityNotFound(EntityNotFoundException e) {
+    public String handleEntityNotFound(EntityNotFoundException e) {
+        return e.getMessage();
+    }
 
-        return null;
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(EntityExistsException.class)
+    public String handleEntityExists(EntityExistsException e) {
+        System.out.println("Asd");
+        return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String handleIllegalArgument(IllegalArgumentException e) {
+        return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(Exception.class)
+    public String handleGenericException(Exception e) {
+        return e.getMessage();
     }
 }

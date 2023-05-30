@@ -25,16 +25,14 @@ public class VenueController {
 
     @PostMapping("")
     public ResponseEntity<?> addNewVenue(@RequestBody NewVenueDTO newVenueDTO) {
-        try {
             VenueDTO venueDTO = venueService.addNewVenue(newVenueDTO);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(venueDTO);
-        } catch (EntityExistsException e) {
-
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (Exception e) {
+        /*
+        catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request");
         }
+         */
     }
 
     @GetMapping("/all")
