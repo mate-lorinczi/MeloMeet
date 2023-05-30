@@ -24,37 +24,26 @@ public class RequestController {
     @PostMapping("/friend")
     public ResponseEntity<?> addNewFriendRequest(@RequestBody NewFriendRequestDTO newFriendRequestDTO) {
 
-        try {
-            RequestDTO requestDTO = requestService.generateNewFriendRequest(newFriendRequestDTO);
+        RequestDTO requestDTO = requestService.generateNewFriendRequest(newFriendRequestDTO);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
     }
 
     @PostMapping("/group")
     public ResponseEntity<?> addNewGroupInviteRequest(@RequestBody NewInvitationDTO newInvitationDTO) {
 
-        try {
-            RequestDTO requestDTO = requestService.generateNewGroupInviteRequest(newInvitationDTO);
+        RequestDTO requestDTO = requestService.generateNewGroupInviteRequest(newInvitationDTO);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(requestDTO);
+
     }
 
     @GetMapping("/{requestId}")
     public ResponseEntity<?> getRequestByRequestId(@PathVariable String requestId) {
 
-        try {
-            RequestDTO requestDTO = requestService.findRequestByRequestId(requestId);
+        RequestDTO requestDTO = requestService.findRequestByRequestId(requestId);
 
-            return ResponseEntity.status(HttpStatus.OK).body(requestDTO);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(requestDTO);
     }
 
 }

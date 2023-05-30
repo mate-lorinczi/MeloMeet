@@ -30,43 +30,25 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<?> addNewUser(@RequestBody NewUserDTO newUserDTO) {
 
-        try {
-            UserDTO addedUser = userService.addNewUser(newUserDTO);
+        UserDTO addedUser = userService.addNewUser(newUserDTO);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(addedUser);
-        } catch (UserRegistrationException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedUser);
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserByUserId(@PathVariable String userId) {
 
-        try {
-            UserDTO userDTO = userService.getUserDTOByUserId(userId);
+        UserDTO userDTO = userService.getUserDTOByUserId(userId);
 
-            return ResponseEntity.status(HttpStatus.OK).body(userDTO);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(userDTO);
     }
 
     @GetMapping("/{userId}/friends")
     public ResponseEntity<?> getFriendsByUserId(@PathVariable String userId) {
 
-        try {
-            Set<UserDTO> friends = userService.getFriendsByUserId(userId);
+        Set<UserDTO> friends = userService.getFriendsByUserId(userId);
 
-            return ResponseEntity.status(HttpStatus.OK).body(friends);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(friends);
     }
 
     /*
@@ -74,13 +56,10 @@ public class UserController {
      */
     @GetMapping("/{userId}/invited")
     public ResponseEntity<?> getInvitedGroupsByUserId(@PathVariable String userId) {
-        try {
-            Set<GroupDTO> invitedGroups = groupService.getAllInvitedGroupsByUserId(userId);
 
-            return ResponseEntity.status(HttpStatus.OK).body(invitedGroups);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found!");
-        }
+        Set<GroupDTO> invitedGroups = groupService.getAllInvitedGroupsByUserId(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(invitedGroups);
 
     }
 
@@ -88,45 +67,30 @@ public class UserController {
     @PatchMapping("")
     public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
 
-        try {
-            UserDTO updatedUser = userService.updateUser(userDTO);
+        UserDTO updatedUser = userService.updateUser(userDTO);
 
-            return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
     }
 
     @PatchMapping("{requestSenderId}/friends/{requestReceiverId}")
-    public ResponseEntity<?> addFriend(
-            @PathVariable String requestSenderId,
-            @PathVariable String requestReceiverId
-                                       ) {
-        try {
-            boolean result = userService.addFriend(requestSenderId, requestReceiverId);
+    public ResponseEntity<?> addFriend(@PathVariable String requestSenderId,
+                                       @PathVariable String requestReceiverId) {
+        boolean result = userService.addFriend(requestSenderId, requestReceiverId);
 
-            if (!result) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server " +
-                        "Error!");
-            } else {
-                return ResponseEntity.status(HttpStatus.OK).body("Friend added!");
-            }
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Problem with the request!");
+        if (!result) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server " +
+                    "Error!");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body("Friend added!");
         }
     }
 
     @GetMapping("")
     public ResponseEntity<?> getUsersBySearchStringOfName(@RequestParam String name) {
-        try {
-            Set<UserDTO> userDTOS = userService.getUsersBySearchString(name);
 
-            return ResponseEntity.status(HttpStatus.OK).body(userDTOS);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+        Set<UserDTO> userDTOS = userService.getUsersBySearchString(name);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDTOS);
     }
 
 }
