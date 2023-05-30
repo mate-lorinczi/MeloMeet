@@ -18,14 +18,14 @@ public class Venue {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID venueId;
-    @Column
+    @Column(nullable = false)
     private String city;
-    @Column
+    @Column(nullable = false)
     private String postalCode;
-    @Column
+    @Column(nullable = false)
     private String address;
     @Column
     private boolean isOpenAir;
-    @Column
+    @Column(nullable = false)
     private String name;
 }
