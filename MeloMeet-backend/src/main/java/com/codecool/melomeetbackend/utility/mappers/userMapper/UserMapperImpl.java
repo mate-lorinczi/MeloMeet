@@ -6,16 +6,19 @@ import com.codecool.melomeetbackend.model.User;
 import com.codecool.melomeetbackend.repository.UserRepository;
 import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserMapperImpl implements UserMapper{
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserMapperImpl(UserRepository userRepository) {
+    public UserMapperImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class UserMapperImpl implements UserMapper{
         newUser.setAdmin(false);
         newUser.setBanned(false);
         newUser.setEmail(email);
-        newUser.setPassword(newUserDTO.password());
+        newUser.setPassword(passwordEncoder.encode(newUserDTO.password()));
         newUser.setUsername(username);
 
         return newUser;
