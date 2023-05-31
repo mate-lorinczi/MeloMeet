@@ -29,7 +29,7 @@ public class SecurityConfig {
                     try {
                         requests
                                 .requestMatchers("/login").permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                                 .and().cors();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
