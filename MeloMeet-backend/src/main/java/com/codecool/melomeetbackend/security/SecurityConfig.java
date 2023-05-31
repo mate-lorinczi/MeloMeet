@@ -30,7 +30,9 @@ public class SecurityConfig {
                         requests
                                 .requestMatchers("/login").permitAll()
                                 .anyRequest().permitAll()
-                                .and().cors();
+                                .and().cors()
+                                .and().csrf().disable()
+                        ;
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
