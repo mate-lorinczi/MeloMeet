@@ -25,7 +25,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.authorizeHttpRequests((requests) -> requests.requestMatchers("").permitAll());
+        httpSecurity.authorizeHttpRequests((requests) -> {
+                    try {
+                        requests
+                                .requestMatchers("/login").permitAll()
+                                .anyRequest().authenticated()
+                                .and().cors();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
+
+        httpSecurity.addFilter(new CustomUsernamePasswordAuthenticationFilter(authenticationManager()));
 
         return httpSecurity.build();
     }
