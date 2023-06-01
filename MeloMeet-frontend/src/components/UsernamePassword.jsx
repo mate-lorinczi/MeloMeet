@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-const UsernamePasswordFields = (submitName, submit) => {
+const UsernamePasswordFields = (props) => {
+
+  const {submitName} = props.submitName;
+
+  const handleClick = () => {
+    props.submit(values)
+  }
+  //const {submit} = props.submit();
 
   const [values, setValues] = useState({"username": "", "password": ""});
 
@@ -19,7 +26,7 @@ const UsernamePasswordFields = (submitName, submit) => {
         <label htmlFor="password">Password</label>
         <input type="password" name="password" onChange={handleChange("username")}/>
       </div>
-      <button onClick={submit(values)}>{submitName}</button>
+      <button onClick={handleClick}>{submitName}</button>
     </div>
   );
 };
