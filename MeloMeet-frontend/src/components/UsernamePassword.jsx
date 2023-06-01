@@ -23,7 +23,7 @@ const UsernamePasswordFields = (props) => {
       </div>
       <div className="password">
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" onChange={handleChange("username")}/>
+        <input type="password" name="password" onChange={handleChange("password")}/>
       </div>
       <button onClick={handleClick}>{submitName}</button>
     </div>
