@@ -1,6 +1,7 @@
 package com.codecool.melomeetbackend.service.user;
 
 import com.codecool.melomeetbackend.model.User;
+import com.codecool.melomeetbackend.service.dto.user.LoginDTO;
 import com.codecool.melomeetbackend.service.dto.user.NewUserDTO;
 import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
@@ -17,4 +18,5 @@ public interface UserService {
     UserDTO getUserByUsername(String username);
     Set<UserDTO> getUsersBySearchString(String searchString);
     User queryUserById(String id);
+    String login(LoginDTO loginDTO);
 }
