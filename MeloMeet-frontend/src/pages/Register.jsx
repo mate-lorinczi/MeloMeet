@@ -17,6 +17,7 @@ const postRegistration = async (regData) => {
 };
 
 const Register = () => {
+  const SUBMIT_NAME = "Register";
   const handleRegistration = async (regData) => {
     const res = await postRegistration(regData);
 
@@ -25,17 +26,14 @@ const Register = () => {
 
   return (
     <div>
+      <div className="email">
+        <label htmlFor="email">Email:</label>
+        <input type="email" name="email" />
+      </div>
       <UsernamePasswordFields
-        submitName="Register"
+        submitName={SUBMIT_NAME}
         submit={handleRegistration}
       />
-      <div className="email">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            name="email"
-          />
-      </div>
     </div>
   );
 };

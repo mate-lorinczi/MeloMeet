@@ -2,12 +2,11 @@ import { useState } from "react";
 
 const UsernamePasswordFields = (props) => {
 
-  const {submitName} = props.submitName;
+  const {submitName} = props;
 
   const handleClick = () => {
     props.submit(values)
   }
-  //const {submit} = props.submit();
 
   const [values, setValues] = useState({"username": "", "password": ""});
 
