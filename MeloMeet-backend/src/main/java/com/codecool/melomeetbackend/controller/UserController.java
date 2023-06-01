@@ -38,6 +38,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+
         String userId = userService.login(loginDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(userId);

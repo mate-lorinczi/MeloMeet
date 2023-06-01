@@ -28,8 +28,8 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests((requests) -> {
                     try {
                         requests
-                                .requestMatchers("/login").permitAll()
-                                .anyRequest().permitAll()
+                                .requestMatchers("/users/login", "/users").permitAll()
+                                .anyRequest().authenticated()
                                 .and().cors()
                                 .and().csrf().disable()
                         ;
@@ -39,7 +39,8 @@ public class SecurityConfig {
                 }
         );
 
-        httpSecurity.addFilter(new CustomUsernamePasswordAuthenticationFilter(authenticationManager()));
+        //httpSecurity.addFilter(new CustomUsernamePasswordAuthenticationFilter
+        // (authenticationManager()));
 
         return httpSecurity.build();
     }
