@@ -10,6 +10,7 @@ import com.codecool.melomeetbackend.utility.mappers.userMapper.UserMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -21,11 +22,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository) {
+    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -48,9 +52,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(LoginDTO loginDTO) {
-        User user = userRepository.findByUsernameAndPassword(loginDTO.username(),
-                loginDTO.password()).orElseThrow(() -> new BadCredentialsException("Username or " +
+        User user = userRepository.findByUsername(loginDTO.username())
+                .orElseThrow(() -> new BadCredentialsException("Username or " +
                 "password is wrong!"));
+        if(!passwordEncoder.matches(loginDTO.password(), user.getPassword())) {
+            throw new BadCredentialsException("Username or " +
+                    "password is wrong!");
+        }
         return user.getUserID().toString();
     }
 
