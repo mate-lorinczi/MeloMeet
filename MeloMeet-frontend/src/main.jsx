@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Register from './pages/Register.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     children: [
       {
-        path: '/register',
-        element: ''
+        path: "/register",
+        element: <Register />
       }
     ]
   }
@@ -18,6 +19,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   <RouterProvider router={router}><App /></RouterProvider>
+   <RouterProvider router={router} />
   </React.StrictMode>,
 )
