@@ -1,6 +1,7 @@
 package com.codecool.melomeetbackend.controller;
 
 import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
+import com.codecool.melomeetbackend.service.dto.user.LoginDTO;
 import com.codecool.melomeetbackend.service.dto.user.NewUserDTO;
 import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.service.group.GroupService;
@@ -33,6 +34,13 @@ public class UserController {
         UserDTO addedUser = userService.addNewUser(newUserDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(addedUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+        String userId = userService.login(loginDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userId);
     }
 
     @GetMapping("/{userId}")

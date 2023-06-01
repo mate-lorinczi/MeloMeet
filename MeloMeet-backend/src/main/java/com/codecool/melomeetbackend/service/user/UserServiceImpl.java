@@ -1,5 +1,6 @@
 package com.codecool.melomeetbackend.service.user;
 
+import com.codecool.melomeetbackend.service.dto.user.LoginDTO;
 import com.codecool.melomeetbackend.service.dto.user.NewUserDTO;
 import com.codecool.melomeetbackend.service.dto.user.UserDTO;
 import com.codecool.melomeetbackend.model.User;
@@ -8,6 +9,7 @@ import com.codecool.melomeetbackend.utility.excepiton.UserRegistrationException;
 import com.codecool.melomeetbackend.utility.mappers.userMapper.UserMapper;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -42,6 +44,14 @@ public class UserServiceImpl implements UserService {
         }
 
         return userDTO;
+    }
+
+    @Override
+    public String login(LoginDTO loginDTO) {
+        User user = userRepository.findByUsernameAndPassword(loginDTO.username(),
+                loginDTO.password()).orElseThrow(() -> new BadCredentialsException("Username or " +
+                "password is wrong!"));
+        return user.getUserID().toString();
     }
 
     @Override
