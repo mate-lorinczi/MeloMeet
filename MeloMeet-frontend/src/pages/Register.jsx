@@ -1,7 +1,16 @@
 import { useState } from "react";
 import UsernamePasswordFields from "../components/UsernamePassword";
 
-const postRegistration = async (regData) => {
+const getRegStatus = (code) => {
+    const statuses = {
+        201: "Successful registration!",
+        409: "Username or Email already in use!"
+    };
+
+    return statuses[code];
+}
+
+const postRegistration = async (regData, setRegStatus) => {
   console.log(regData);  
   const res = await fetch("/api/users", {
     method: "POST",
@@ -12,20 +21,21 @@ const postRegistration = async (regData) => {
   });
 
   if (!res.ok) {
-    console.log(res.status);
-    return res.status
+    setRegStatus(getRegStatus(res.status));
+    return;
   }
-
+  setRegStatus(getRegStatus(res.status));
   return await res.json();
 };
 
 const Register = () => {
   const SUBMIT_NAME = "Register";
 
-  const [values, setValues] = useState({"email": ""})
+  const [values, setValues] = useState({"email": ""});
+  const [regStatus, setRegStatus] = useState(null);
 
   const handleRegistration = async (regData) => {
-    const res = await postRegistration({...values, ...regData});
+    const res = await postRegistration({...values, ...regData}, setRegStatus);
 
     console.log(res);
   };
@@ -45,6 +55,7 @@ const Register = () => {
         submitName={SUBMIT_NAME}
         submit={handleRegistration}
       />
+      <div>{regStatus}</div>
     </div>
   );
 };
