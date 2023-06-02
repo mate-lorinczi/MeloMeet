@@ -1,4 +1,31 @@
+import { useState } from "react";
+
 const VenueForm = () => {
+
+  const [values, setValues] = useState({
+    "name" : "",
+    "wholeAddress" : {
+      "city" : "",
+      "postalCode": "",
+      "address": ""
+    },
+    "isOpenAir": false
+  });
+
+  const handleValueChange = (prop) => (event) => {
+    let newValues;
+
+    if(prop === "isOpenAir") {
+      const isOpenAir = !values.isOpenAir;
+      newValues = {...values, "isOpenAir":[isOpenAir]};
+      
+    } else {
+      newValues = {...values, [prop] : event.target.value};
+    }
+
+    setValues(newValues);
+  }
+
   return (
     <div>
       <div className="newVenueName">

@@ -5,7 +5,7 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
-import VenueForm from './pages/VenueForm.jsx';
+import VenueForm from './components/VenueForm.jsx';
 
 const router = createBrowserRouter([
   {
