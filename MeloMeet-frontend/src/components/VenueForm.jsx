@@ -20,10 +20,15 @@ const VenueForm = () => {
       newValues = {...values, "isOpenAir":[isOpenAir]};
       
     } else {
-      newValues = {...values, [prop] : event.target.value};
+      console.log(values["wholeAddress"]["city"])
+      newValues = values[prop] !== undefined ? {...values, [prop] : event.target.value} : {...values, wholeAddress: {
+        ...values.wholeAddress,
+        [prop] : event.target.value
+      }};
     }
 
     setValues(newValues);
+    console.log(values);
   }
 
   return (
@@ -33,6 +38,7 @@ const VenueForm = () => {
         <input
           type="text"
           name="newVenueName"
+          onChange={handleValueChange("name")}
         />
       </div>
       <div className="newVenueCity">
@@ -40,6 +46,7 @@ const VenueForm = () => {
         <input
           type="text"
           name="newVenueCity"
+          onChange={handleValueChange("city")}
         />
       </div>
       <div className="newVenuePostalCode">
@@ -47,6 +54,7 @@ const VenueForm = () => {
         <input
           type="text"
           name="newVenuePostalCode"
+          onChange={handleValueChange("postalCode")}
         />
       </div>
       <div className="newVenueAddress">
@@ -54,11 +62,13 @@ const VenueForm = () => {
         <input
           type="text"
           name="newVenueAddress"
+          onChange={handleValueChange("address")}
         />
       </div>
       <div>
-       <input type="checkbox" name="newVenueIsOpenAir"/>
+       <input type="checkbox" name="newVenueIsOpenAir" onChange={handleValueChange("isOpenAir")}/>
        <label htmlFor="newVenueIsOpenAir">Open Air</label>
+       
       </div>
     </div>
   );
