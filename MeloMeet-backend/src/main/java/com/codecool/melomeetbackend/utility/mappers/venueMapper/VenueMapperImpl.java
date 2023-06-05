@@ -25,8 +25,8 @@ public class VenueMapperImpl implements VenueMapper{
 
     @Override
     public VenueDTO venueToVenueDTO(Venue venue) {
-        WholeAddress wholeAddress = new WholeAddress(venue.getAddress(), venue.getCity(),
-                venue.getPostalCode());
+        WholeAddress wholeAddress = new WholeAddress(venue.getCity(),
+                venue.getPostalCode(), venue.getAddress());
         String venueId = venue.getVenueId().toString();
         VenueDTO venueDTO = new VenueDTO(venue.getName(), wholeAddress, venue.isOpenAir(), venueId);
 

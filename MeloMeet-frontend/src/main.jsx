@@ -5,7 +5,7 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
-import VenueForm from './components/VenueForm.jsx';
+import NewVenue from './pages/NewVenue.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/venue/add',
-            element: <VenueForm />
+            element: <NewVenue />
           }
         ]
       }

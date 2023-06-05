@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const VenueForm = () => {
-
+const VenueForm = (props) => {
+  
   const [values, setValues] = useState({
     "name" : "",
     "wholeAddress" : {
@@ -12,12 +12,16 @@ const VenueForm = () => {
     "isOpenAir": false
   });
 
+  const handleSubmit = () => {
+    props.submit(values)
+  }
+
   const handleValueChange = (prop) => (event) => {
     let newValues;
 
     if(prop === "isOpenAir") {
       const isOpenAir = !values.isOpenAir;
-      newValues = {...values, "isOpenAir":[isOpenAir]};
+      newValues = {...values, "isOpenAir":isOpenAir};
       
     } else {
       console.log(values["wholeAddress"]["city"])
@@ -70,6 +74,9 @@ const VenueForm = () => {
        <label htmlFor="newVenueIsOpenAir">Open Air</label>
        
       </div>
+      <button onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 };
