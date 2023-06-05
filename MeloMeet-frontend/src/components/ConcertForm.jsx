@@ -13,9 +13,11 @@ const ConcertForm = (props) => {
   });
 
   const addPerformer = () => {
-    const newPerformer = [...values.currPerformer];
-    newPerformer.push(values.currPerformer)
-    setValues({...values, "performers": newPerformer, "currPerformer" : ""})
+    if(!values.performers.includes(values.currPerformer)) {
+        const newPerformer = [...values.currPerformer];
+        newPerformer.push(values.currPerformer)
+        setValues({...values, "performers": newPerformer, "currPerformer" : ""})
+    }
   }
 
   const addStyle = () => {
@@ -48,7 +50,11 @@ const ConcertForm = (props) => {
         <label htmlFor="styles">Add a style: </label>
         <select name={styles} id="style-select" onClick={handleChange("currStyle")}>
             <option value="">Please choose an option</option>
-            {styles.map(style => <option key={style.styleId} value={style.name}>{style.name}</option>)}
+            {styles.map(style => {
+                if(!values.styles.includes(style)) {
+                    <option key={style.styleId} value={style.name}>{style.name}</option>
+                }
+                })}
         </select>
         <button onClick={addStyle()}>Add Style</button>
       </div>
