@@ -3,6 +3,8 @@ import { useState } from "react";
 const ConcertForm = (props) => {
 
   const {styles} = props;
+
+  console.log(styles)
   
   const [values, setValues] = useState({
     "startDateAndTime" : "",
@@ -45,7 +47,7 @@ const ConcertForm = (props) => {
       <div className="performer">
         <label htmlFor="performer">Add performer:</label>
         <input type="text" name="performer" onChange={handleChange("currPerformer")}/>
-        <button onClick={addPerformer()}>Add</button>
+        <button onClick={() => addPerformer()}>Add</button>
       </div>
       <div className="styles">
         <label htmlFor="styles">Add a style: </label>
@@ -53,11 +55,11 @@ const ConcertForm = (props) => {
             <option value="">Please choose an option</option>
             {styles.map(style => {
                 if(!values.styles.includes(style)) {
-                    <option key={style.styleId} value={style.name}>{style.name}</option>
+                    return <option key={style.styleId} value={style.name}>{style.name}</option>
                 }
                 })}
         </select>
-        <button onClick={addStyle()}>Add Style</button>
+        <button onClick={() => addStyle()}>Add Style</button>
       </div>
     </div>
   );

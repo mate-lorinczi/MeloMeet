@@ -1,4 +1,4 @@
 package com.codecool.melomeetbackend.service.dto;
 
-public record StyleDTO(String name) {
+public record StyleDTO(String name, long styleId) {
 }

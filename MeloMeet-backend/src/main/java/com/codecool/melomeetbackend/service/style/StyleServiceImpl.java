@@ -21,6 +21,7 @@ public class StyleServiceImpl implements StyleService{
     @Override
     public Set<StyleDTO> getAllStyles() {
 
-        return styleRepository.findAll().stream().map(style -> new StyleDTO(style.getName())).collect(Collectors.toSet());
+        return styleRepository.findAll().stream().map(style -> new StyleDTO(style.getName(),
+                style.getStyleId())).collect(Collectors.toSet());
     }
 }
