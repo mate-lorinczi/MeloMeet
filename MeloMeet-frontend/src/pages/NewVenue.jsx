@@ -20,19 +20,24 @@ const postNewVenue = async (values) => {
     return res.status;
 }
 
-const NewVenue = () => {
-
+const getStatusText = (code) => {
     const statusMap = {
         201: "Venue added!",
         409: "Venue already added, or bad address!"
     }
+    return statusMap[code];
+}
+
+const NewVenue = () => {
+
+
     const [statusText, setStatusText] = useState(null)
 
     const handleSubmit = async (values) => {
 
         const res = await postNewVenue(values);
         
-        setStatusText(statusMap[res]);
+        setStatusText(getStatusText(res));
     }
 
     return ( <div>
