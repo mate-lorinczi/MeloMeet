@@ -70,22 +70,21 @@ const ConcertForm = (props) => {
       <div className="styles">
         <label htmlFor="styles">Add a style: </label>
         <select name="styles" id="style-select" onClick={handleChange("currStyle")}>
-          <option value="" selected="selected">Please choose an option</option>
+          <option value="">Please choose an option</option>
             {styles.map((style, index) => {
                 if(!values.styles.includes(style)) {
                     indexMap[style] = index;
                     return <option key={index} value={style.name}>{style.name}</option>;
                 }
-                })}
-          
+                })}   
         </select>
         <button onClick={() => addStyle()}>Add Style</button>
       </div>
       <div className="venues">
         <label htmlFor="venues">Select a venue: </label>
         <select name="venues" id="style-select" onClick={handleChange("venue")}>
-          <option value="" selected="selected">Please choose an option</option>
-          {venues.map(venue => <option key={venue.venueId} value={venue.venueId}>{venue.venueName}</option>)}          
+          <option value="">Please choose an option</option>
+          {venues.map(venue => <option key={venue.venueId} value={venue.venueId}>{venue.name}</option>)}          
         </select>
       </div>
       <button onClick={handleSubmit}>Submit</button>
