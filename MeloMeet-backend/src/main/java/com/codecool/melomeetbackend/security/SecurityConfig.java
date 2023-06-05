@@ -29,7 +29,7 @@ public class SecurityConfig {
                     try {
                         requests
                                 .requestMatchers("/users/login", "/users").permitAll()
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                                 .and().cors()
                                 .and().csrf().disable()
                         ;
