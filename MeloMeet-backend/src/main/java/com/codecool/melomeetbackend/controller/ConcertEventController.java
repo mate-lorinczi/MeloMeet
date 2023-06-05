@@ -27,7 +27,7 @@ public class ConcertEventController {
 
     @PostMapping("")
     public ResponseEntity<?> addNewConcertEvent(@RequestBody NewConcertEventDTO concertEventDTO) {
-
+        System.out.println(concertEventDTO);
         ConcertEventDTO concertEvent = concertEventServiceImpl.addNewEvent(concertEventDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(concertEvent);
 
