@@ -68,6 +68,7 @@ public class ConcertEventMapper implements EventMapper {
         return concertEventDTO;
     }
 
+    //TODO: Add venue mapping to mapper!
     public ConcertEvent mapNewConcertEventDTOToCOncertEvent(NewConcertEventDTO newConcertEventDTO) {
         ConcertEvent concertEvent = new ConcertEvent();
 
