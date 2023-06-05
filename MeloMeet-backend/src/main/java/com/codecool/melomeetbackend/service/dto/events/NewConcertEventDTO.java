@@ -5,5 +5,6 @@ import java.util.Set;
 //TODO: Add venue to the dto!
 public record NewConcertEventDTO(LocalDateTime startDateAndTime,
                                  LocalDateTime endDateAndTime,
-                                 Set<String> performers, String createdBy, Set<String> styles) {
+                                 Set<String> performers, String createdBy, Set<String> styles,
+                                 String venueId) {
 }
