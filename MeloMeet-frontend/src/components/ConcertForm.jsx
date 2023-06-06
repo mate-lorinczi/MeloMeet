@@ -51,7 +51,8 @@ const ConcertForm = (props) => {
     const newValues = {...values, [prop] : event.target.value};
     setValues(newValues);
   }
-
+  //TODO: Deletable performers and styles.
+  //TODO: Cap on performers and styles.
   return (
     <div>
       <div className="startTime">
