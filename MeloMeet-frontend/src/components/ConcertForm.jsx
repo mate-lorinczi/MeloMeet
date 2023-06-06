@@ -66,6 +66,7 @@ const ConcertForm = (props) => {
         <label htmlFor="performer">Add performer:</label>
         <input type="text" name="performer" onChange={handleChange("currPerformer")} value={values.currPerformer}/>
         <button onClick={() => addPerformer()}>Add</button>
+        <div>Currently added Performers: {values.performers.join(", ")}</div>
       </div>
       <div className="styles">
         <label htmlFor="styles">Add a style: </label>
@@ -79,6 +80,7 @@ const ConcertForm = (props) => {
                 })}   
         </select>
         <button onClick={() => addStyle()}>Add Style</button>
+        <div>Currently added Styles: {values.styles.join(", ")}</div>
       </div>
       <div className="venues">
         <label htmlFor="venues">Select a venue: </label>
