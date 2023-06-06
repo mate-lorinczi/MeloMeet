@@ -24,7 +24,6 @@ const VenueForm = (props) => {
       newValues = {...values, "isOpenAir":isOpenAir};
       
     } else {
-      console.log(values["wholeAddress"]["city"])
       newValues = values[prop] !== undefined ? {...values, [prop] : event.target.value} : {...values, wholeAddress: {
         ...values.wholeAddress,
         [prop] : event.target.value
@@ -32,7 +31,7 @@ const VenueForm = (props) => {
     }
 
     setValues(newValues);
-    console.log(values);
+    
   }
 
   return (
