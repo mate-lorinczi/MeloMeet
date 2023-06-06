@@ -13,6 +13,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -43,7 +45,7 @@ public class GroupMapperImpl implements GroupMapper{
                 concertEventRepository.findById(UUID.fromString(newGroupDTO.eventId())).orElseThrow(() -> new EntityNotFoundException("Event with id " + newGroupDTO.eventId() + " not found!"));
 
         group.setCreator(creator);
-        group.setOpenToNonInvited(newGroupDTO.isOpen());
+        group.setOpenToNonInvited(newGroupDTO.openToNonFriends());
         group.setEvent(concertEvent);
 
         return group;
@@ -55,9 +57,11 @@ public class GroupMapperImpl implements GroupMapper{
 
         UserDTO creator = userMapper.userEntityToUserDTO(group.getCreator());
 
-        var members = group.getMembers().stream().map(userMapper::userEntityToUserDTO).collect(Collectors.toSet());
-        var invited =
-                group.getMembers().stream().map(userMapper::userEntityToUserDTO).collect(Collectors.toSet());
+        var members =
+                group.getMembers() == null ? new HashSet<UserDTO>() :
+                        group.getMembers().stream().map(userMapper::userEntityToUserDTO).collect(Collectors.toSet());
+        var invited = group.getInvited() == null ? new HashSet<UserDTO>() :
+                group.getInvited().stream().map(userMapper::userEntityToUserDTO).collect(Collectors.toSet());
 
         GroupDTO groupDTO = new GroupDTO(group.getGroupId().toString(), creator,
                 members, group.isOpenToNonInvited(),

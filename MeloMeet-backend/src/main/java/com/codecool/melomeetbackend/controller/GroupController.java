@@ -3,13 +3,11 @@ package com.codecool.melomeetbackend.controller;
 import com.codecool.melomeetbackend.service.dto.group.GroupDTO;
 import com.codecool.melomeetbackend.service.dto.group.NewGroupDTO;
 import com.codecool.melomeetbackend.service.group.GroupService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
 import java.util.Set;
 
 @RestController
@@ -24,8 +22,7 @@ public class GroupController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> addNewGroup(NewGroupDTO newGroupDTO) {
-
+    public ResponseEntity<?> addNewGroup(@RequestBody NewGroupDTO newGroupDTO) {
         GroupDTO addedGroup = groupService.addNewGroupForAConcertEvent(newGroupDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(addedGroup);

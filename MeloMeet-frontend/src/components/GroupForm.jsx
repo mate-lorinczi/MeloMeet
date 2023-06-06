@@ -4,8 +4,8 @@ const GroupForm = (props) => {
   const [prefix, setPrefix] = useState("");
   const { events } = props;
   const [values, setValues] = useState({
-    eventId: "",
-    isOpen: false,
+    "openToNonFriends": false,
+    "eventId": ""
   });
 
   const handleChange = (prop, value) => {
@@ -17,7 +17,6 @@ const GroupForm = (props) => {
     props.submit(values);
   }
 
-  console.log(events);
 
   return (
     <div>
@@ -46,10 +45,10 @@ const GroupForm = (props) => {
       <div>
         <input
           type="checkbox"
-          name="newVenueIsOpenAir"
-          onChange={() => handleChange("isOpenAir", !values.isOpen)}
+          name="newGroupIsOpen"
+          onChange={() => handleChange("openToNonFriends", !values.isOpen)}
         />
-        <label htmlFor="newVenueIsOpenAir">Open Air</label>
+        <label htmlFor="newGroupIsOpen">Open Air</label>
       </div>
       <button onClick={() => handleSubmit()}>Submit</button>
     </div>

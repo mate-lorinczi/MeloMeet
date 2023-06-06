@@ -1,4 +1,4 @@
 package com.codecool.melomeetbackend.service.dto.group;
 
-public record NewGroupDTO(String creatorId, boolean isOpen, String eventId) {
+public record NewGroupDTO(String creatorId, boolean openToNonFriends, String eventId) {
 }
