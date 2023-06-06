@@ -6,17 +6,18 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import NewVenue from './pages/NewVenue.jsx';
+import NewEvent from './pages/NewEvent.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     children: [
       {
-        path: "/register",
+        path: '/register',
         element: <Register />
       },
       {
-        path: "/login",
+        path: '/login',
         element: <Login />
       },
       {
@@ -25,6 +26,15 @@ const router = createBrowserRouter([
           {
             path: '/venue/add',
             element: <NewVenue />
+          }
+        ]
+      },
+      {
+        path: '/event',
+        children: [
+          {
+            path: '/event/add',
+            element: <NewEvent />
           }
         ]
       }

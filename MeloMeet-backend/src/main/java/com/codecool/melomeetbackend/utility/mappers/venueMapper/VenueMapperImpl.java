@@ -1,6 +1,7 @@
 package com.codecool.melomeetbackend.utility.mappers.venueMapper;
 
 import com.codecool.melomeetbackend.service.dto.venue.NewVenueDTO;
+import com.codecool.melomeetbackend.service.dto.venue.SimpleVenueDTO;
 import com.codecool.melomeetbackend.service.dto.venue.VenueDTO;
 import com.codecool.melomeetbackend.service.dto.venue.WholeAddress;
 import com.codecool.melomeetbackend.model.Venue;
@@ -31,5 +32,10 @@ public class VenueMapperImpl implements VenueMapper{
         VenueDTO venueDTO = new VenueDTO(venue.getName(), wholeAddress, venue.isOpenAir(), venueId);
 
         return venueDTO;
+    }
+
+    @Override
+    public SimpleVenueDTO venueToSimpleVenueDTO(Venue venue) {
+        return new SimpleVenueDTO(venue.getName(), venue.getVenueId().toString());
     }
 }

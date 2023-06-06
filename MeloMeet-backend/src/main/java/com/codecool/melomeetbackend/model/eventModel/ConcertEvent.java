@@ -14,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Builder
 @Data
+//TODO: @Table és @Column nem kell ott, ahol nem adunk meg extra kritériumot!
 @Table
 @NoArgsConstructor
 @AllArgsConstructor

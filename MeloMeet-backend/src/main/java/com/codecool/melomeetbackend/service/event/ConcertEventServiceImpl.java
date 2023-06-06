@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+//TODO: Tagolni a streameket!
 @Service
 public class ConcertEventServiceImpl implements ConcertEventService {
     private final ConcertEventRepository concertEventRepository;
@@ -70,7 +70,11 @@ public class ConcertEventServiceImpl implements ConcertEventService {
     @Override
     public List<ConcertEventDTO> findAll() {
         var concertEvents =
-                concertEventRepository.findAll().stream().map(concertEventMapper::mapConcertEventToConcertEventDTO).toList();
+                concertEventRepository
+                        .findAll()
+                        .stream()
+                        .map(concertEventMapper::mapConcertEventToConcertEventDTO)
+                        .toList();
 
         return concertEvents;
     }

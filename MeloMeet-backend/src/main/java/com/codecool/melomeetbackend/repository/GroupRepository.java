@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 @Repository
+//EZ a spring data megközelítése!!
 public interface GroupRepository extends JpaRepository<Group, UUID> {
 
     Set<Group> findAllByOpenToNonInvitedIsTrue();
