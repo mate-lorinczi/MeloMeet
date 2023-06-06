@@ -7,6 +7,7 @@ import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import NewVenue from './pages/NewVenue.jsx';
 import NewEvent from './pages/NewEvent.jsx';
+import NewGroup from './pages/NewGroup.jsx';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,15 @@ const router = createBrowserRouter([
           {
             path: '/event/add',
             element: <NewEvent />
+          }
+        ]
+      },
+      {
+        path: '/group',
+        children: [
+          {
+            path: '/group/add',
+            element: <NewGroup />
           }
         ]
       }

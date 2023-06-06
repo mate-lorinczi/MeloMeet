@@ -74,7 +74,7 @@ public class ConcertEventMapper implements EventMapper {
                 "Concert of [" + concertEvent.getPerformers()
                         .stream()
                         .map(Performer::getName)
-                        .collect(Collectors.joining(", ")) + "] at " + concertEvent.getVenue().getName();
+                        .collect(Collectors.joining(" | ")) + "] at " + concertEvent.getVenue().getName();
         SimpleVenueDTO simpleVenueDTO = venueMapper.venueToSimpleVenueDTO(concertEvent.getVenue());
         ConcertEventDTO concertEventDTO = new ConcertEventDTO(eventId.toString(),
                 concertEvent.getStartDateAndTime(), concertEvent.getEndDateAndTime(),
