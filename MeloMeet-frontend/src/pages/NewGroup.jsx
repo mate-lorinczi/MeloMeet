@@ -10,8 +10,17 @@ const postGroup = async(values) => {
         },
         body: JSON.stringify(values)
     });
+
     const resRead = await res.json();
 
+}
+
+const getStatusText = (code) => {
+    const statusMap = {
+        201: "Group created!",
+        404: "Concert not found!"
+    }
+    return statusMap[code];
 }
 
 const NewGroup = () => {
