@@ -2,6 +2,7 @@ import { useState } from "react";
 import VenueForm from "../components/VenueForm";
 
 const postNewVenue = async (values) => {
+    console.log(values)
     const res = await fetch('/api/venues', {
         method: 'POST',
         headers: {

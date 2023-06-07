@@ -12,5 +12,5 @@ import java.util.Set;
 public record ConcertEventDTO(String eventId, LocalDateTime startDateAndTime,
                               LocalDateTime endDateAndTime,
                               Set<Performer> performers, UserDTO createdBy, Set<Style> styles,
-                              SimpleVenueDTO simpleVenueDTO) {
+                              SimpleVenueDTO simpleVenueDTO, String eventName) {
 }

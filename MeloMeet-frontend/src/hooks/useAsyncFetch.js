@@ -18,7 +18,7 @@ export function useAsyncFetch(url){
         }
 
         fetchData();
-    }, []);
+    }, [url]);
 
 
     return [result, loading];

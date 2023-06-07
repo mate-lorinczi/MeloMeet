@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ConcertEventMapper implements EventMapper {
@@ -69,12 +70,17 @@ public class ConcertEventMapper implements EventMapper {
     @Override
     public ConcertEventDTO mapConcertEventToConcertEventDTO(ConcertEvent concertEvent) {
         UUID eventId = concertEvent.getEventId();
+        String name =
+                "Concert of [" + concertEvent.getPerformers()
+                        .stream()
+                        .map(Performer::getName)
+                        .collect(Collectors.joining(" | ")) + "] at " + concertEvent.getVenue().getName();
         SimpleVenueDTO simpleVenueDTO = venueMapper.venueToSimpleVenueDTO(concertEvent.getVenue());
         ConcertEventDTO concertEventDTO = new ConcertEventDTO(eventId.toString(),
                 concertEvent.getStartDateAndTime(), concertEvent.getEndDateAndTime(),
                 concertEvent.getPerformers(),
                 userMapper.userEntityToUserDTO(concertEvent.getCreatedBy()),
-                concertEvent.getStyles(), simpleVenueDTO);
+                concertEvent.getStyles(), simpleVenueDTO, name);
 
         return concertEventDTO;
     }
