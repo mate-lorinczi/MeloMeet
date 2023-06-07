@@ -9,4 +9,5 @@ public interface EventMapper {
     ConcertEvent mapDTOToEvent(ConcertEventDTO eventDTO);
     ConcertEventDTO mapConcertEventToConcertEventDTO(ConcertEvent concertEvent);
     ConcertEvent mapNewConcertEventDTOToCOncertEvent(NewConcertEventDTO newConcertEventDTO);
+    //SimpleConcertEventDTO mapConcertEventToSimpleConcertEventDTO()
 }

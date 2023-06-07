@@ -65,7 +65,7 @@ public class GroupMapperImpl implements GroupMapper{
 
         GroupDTO groupDTO = new GroupDTO(group.getGroupId().toString(), creator,
                 members, group.isOpenToNonInvited(),
-                invited, group.getEvent().getEventId().toString());
+                invited, group.getEvent().getEventId().toString(), group.getName());
 
         return groupDTO;
     }

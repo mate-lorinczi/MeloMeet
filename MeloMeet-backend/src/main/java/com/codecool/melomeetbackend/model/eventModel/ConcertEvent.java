@@ -10,6 +10,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -40,4 +41,12 @@ public class ConcertEvent{
     @JoinColumn
     @ManyToMany
     private Set<Style> styles;
+
+    public String getName() {
+        return
+                "Concert of [" + performers
+                        .stream()
+                        .map(Performer::getName)
+                        .collect(Collectors.joining(" | ")) + "] at " + venue.getName();
+    }
 }

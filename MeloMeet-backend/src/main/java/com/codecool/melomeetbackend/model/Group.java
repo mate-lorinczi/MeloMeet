@@ -34,4 +34,8 @@ public class Group {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ConcertEvent event;
+
+    public String getName() {
+        return creator.getUsername() + "'s group for: " + event.getName();
+    }
 }
